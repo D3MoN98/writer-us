@@ -19,3 +19,29 @@ Route::get('testimonials', 'FrontController@testimonials')->name('testimonials')
 Route::get('about-us', 'FrontController@aboutUs')->name('about-us');
 Route::get('job', 'FrontController@job')->name('job');
 Route::get('writer', 'FrontController@writer')->name('writer');
+
+
+
+Route::middleware(['guest'])->group(function () {
+    Route::post('login-action', 'AuthController@loginAction')->name('login-action');
+    Route::post('register-action', 'AuthController@registerAction')->name('register-action');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('logout', 'AuthController@logout')->name('logout');
+});
+
+
+Route::namespace('Admin')->prefix('admin/')->name('admin.')->group(function () {
+
+    Route::middleware(['guest'])->group(function () {
+        Route::get('login', 'AuthController@login')->name('login');
+        Route::post('login-action', 'AuthController@loginAction')->name('login-action');
+        Route::get('logout', 'AuthController@logout')->name('logout');
+    });
+
+    Route::middleware(['admin'])->group(function () {
+        Route::get('dashboard', 'AuthController@dashboard')->name('dashboard');
+        Route::resource('writer', 'WriterController');
+    });
+});

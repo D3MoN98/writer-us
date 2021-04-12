@@ -31,180 +31,43 @@
                 </div>
             </div>
             <div class="writter_pg row">
+                @if ($writers->count() > 0)
+                @foreach ($writers as $writer)
                 <div class="col-md-4">
                     <div class="testimonial-box writer_pg_bx  wow fadeInLeft" data-wow-delay="0.2s">
                         <div class="testi-icon">
-                            <div class="testi-icon-innr"> <img src="{{asset('images/ch1.png')}}" alt="" /> </div>
+                            <div class="testi-icon-innr"> <img src="{{asset("storage/$writer->image")}}" alt="" />
+                            </div>
                             <div class="testi-icon-txt">
-                                <h3>Dr. Raychelle</h3>
-                                <h5>№5 In global rating</h5>
+                                <h3>{{$writer->name}}</h3>
+                                <h5>№{{$writer->global_rating_rank}} In global rating</h5>
                                 <img src="{{asset('images/star.png')}}" alt="">
                             </div>
                         </div>
                         <div class="chs-txt">
                             <div>
-                                <h2>107</h2>
+                                <h2>{{$writer->finished_papers}}</h2>
                                 <p>Finished Papers</p>
                             </div>
                             <div>
-                                <h2>289</h2>
+                                <h2>{{$writer->customer_reviews}}</h2>
                                 <p>Customer Reviews</p>
                             </div>
                         </div>
                         <div class="hire-txt">
                             <div>
-                                <h2>99%</h2>
+                                <h2>{{$writer->success_rate}}%</h2>
                                 <p>Success Rate</p>
                             </div>
                             <a href="" class="btn btn-primary cmn_btn ">Hire</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="testimonial-box writer_pg_bx  wow fadeInLeft" data-wow-delay="0.2s">
-                        <div class="testi-icon">
-                            <div class="testi-icon-innr"> <img src="{{asset('images/ch2.png')}}" alt="" /> </div>
-                            <div class="testi-icon-txt">
-                                <h3>Dr. Raychelle</h3>
-                                <h5>№5 In global rating</h5>
-                                <img src="{{asset('images/star.png')}}" alt="">
-                            </div>
-                        </div>
-                        <div class="chs-txt">
-                            <div>
-                                <h2>107</h2>
-                                <p>Finished Papers</p>
-                            </div>
-                            <div>
-                                <h2>289</h2>
-                                <p>Customer Reviews</p>
-                            </div>
-                        </div>
-                        <div class="hire-txt">
-                            <div>
-                                <h2>99%</h2>
-                                <p>Success Rate</p>
-                            </div>
-                            <a href="" class="btn btn-primary cmn_btn ">Hire</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="testimonial-box writer_pg_bx  wow fadeInLeft" data-wow-delay="0.2s">
-                        <div class="testi-icon">
-                            <div class="testi-icon-innr"> <img src="{{asset('images/ch3.png')}}" alt="" /> </div>
-                            <div class="testi-icon-txt">
-                                <h3>Dr. Raychelle</h3>
-                                <h5>№5 In global rating</h5>
-                                <img src="{{asset('images/star.png')}}" alt="">
-                            </div>
-                        </div>
-                        <div class="chs-txt">
-                            <div>
-                                <h2>107</h2>
-                                <p>Finished Papers</p>
-                            </div>
-                            <div>
-                                <h2>289</h2>
-                                <p>Customer Reviews</p>
-                            </div>
-                        </div>
-                        <div class="hire-txt">
-                            <div>
-                                <h2>99%</h2>
-                                <p>Success Rate</p>
-                            </div>
-                            <a href="" class="btn btn-primary cmn_btn ">Hire</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="testimonial-box writer_pg_bx  wow fadeInLeft" data-wow-delay="0.2s">
-                        <div class="testi-icon">
-                            <div class="testi-icon-innr"> <img src="{{asset('images/ch1.png')}}" alt="" /> </div>
-                            <div class="testi-icon-txt">
-                                <h3>Dr. Raychelle</h3>
-                                <h5>№5 In global rating</h5>
-                                <img src="{{asset('images/star.png')}}" alt="">
-                            </div>
-                        </div>
-                        <div class="chs-txt">
-                            <div>
-                                <h2>107</h2>
-                                <p>Finished Papers</p>
-                            </div>
-                            <div>
-                                <h2>289</h2>
-                                <p>Customer Reviews</p>
-                            </div>
-                        </div>
-                        <div class="hire-txt">
-                            <div>
-                                <h2>99%</h2>
-                                <p>Success Rate</p>
-                            </div>
-                            <a href="" class="btn btn-primary cmn_btn ">Hire</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="testimonial-box writer_pg_bx  wow fadeInLeft" data-wow-delay="0.2s">
-                        <div class="testi-icon">
-                            <div class="testi-icon-innr"> <img src="{{asset('images/ch2.png')}}" alt="" /> </div>
-                            <div class="testi-icon-txt">
-                                <h3>Dr. Raychelle</h3>
-                                <h5>№5 In global rating</h5>
-                                <img src="{{asset('images/star.png')}}" alt="">
-                            </div>
-                        </div>
-                        <div class="chs-txt">
-                            <div>
-                                <h2>107</h2>
-                                <p>Finished Papers</p>
-                            </div>
-                            <div>
-                                <h2>289</h2>
-                                <p>Customer Reviews</p>
-                            </div>
-                        </div>
-                        <div class="hire-txt">
-                            <div>
-                                <h2>99%</h2>
-                                <p>Success Rate</p>
-                            </div>
-                            <a href="" class="btn btn-primary cmn_btn ">Hire</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="testimonial-box writer_pg_bx  wow fadeInLeft" data-wow-delay="0.2s">
-                        <div class="testi-icon">
-                            <div class="testi-icon-innr"> <img src="{{asset('images/ch3.png')}}" alt="" /> </div>
-                            <div class="testi-icon-txt">
-                                <h3>Dr. Raychelle</h3>
-                                <h5>№5 In global rating</h5>
-                                <img src="{{asset('images/star.png')}}" alt="">
-                            </div>
-                        </div>
-                        <div class="chs-txt">
-                            <div>
-                                <h2>107</h2>
-                                <p>Finished Papers</p>
-                            </div>
-                            <div>
-                                <h2>289</h2>
-                                <p>Customer Reviews</p>
-                            </div>
-                        </div>
-                        <div class="hire-txt">
-                            <div>
-                                <h2>99%</h2>
-                                <p>Success Rate</p>
-                            </div>
-                            <a href="" class="btn btn-primary cmn_btn ">Hire</a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+                @endif
+                @if ($writers->count() == 0)
+                No writer available
+                @endif
             </div>
         </div>
     </div>

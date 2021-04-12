@@ -29,6 +29,11 @@
 
     @include('include.footer')
 
+    @guest
+    @include('include.login-modal')
+    @include('include.register-modal')
+    @endguest
+
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -38,7 +43,19 @@
     <script src="{{asset('js/wow.min.js')}}"></script>
     <script src="{{asset('js/swiper.js')}}"></script>
     <script src="{{asset('js/custom.js')}}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     @stack('scripts')
+
+    @if (session('success'))
+    <script>
+        Swal.fire(
+        'Good job!',
+        '{{session("success")}}',
+        'success'
+    );
+    </script>
+    @endif
+
 </body>
 
 </html>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Writer;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
@@ -28,6 +29,8 @@ class FrontController extends Controller
 
     public function writer()
     {
-        return view('writer');
+        $writers = Writer::all();
+
+        return view('writer')->with(['writers' => $writers]);
     }
 }

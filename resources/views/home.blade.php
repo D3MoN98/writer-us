@@ -398,8 +398,13 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus</p>
             </div>
             <div class="contus-in">
-                <div class="hdr-btn"> <a href="" class="btn btn-primary cmn_btn ">log in</a> <a href=""
-                        class="btn btn-primary cmn_btn lg-in">hire writer</a> </div>
+                <div class="hdr-btn">
+                    @guest
+                    <a href="" class="btn btn-primary cmn_btn " data-toggle="modal" data-target="#loginModal">log in</a>
+                    @endguest
+
+                    <a href="{{route('job')}}" class="btn btn-primary cmn_btn lg-in">hire
+                        writer</a> </div>
             </div>
         </div>
     </div>
