@@ -36,11 +36,13 @@
                                 @guest
                                 <a href="" class="btn btn-primary cmn_btn" data-toggle="modal"
                                     data-target="#loginModal">log in</a>
+                                <a data-toggle="modal" data-target="#loginModal"
+                                    class="btn btn-primary cmn_btn lg-in">hire writer</a>
                                 @endguest
                                 @auth
                                 <a href="{{route('logout')}}" class="btn btn-primary cmn_btn">log Out</a>
+                                <a href="{{route('job.create')}}" class="btn btn-primary cmn_btn lg-in">hire writer</a>
                                 @endauth
-                                <a href="{{route('job')}}" class="btn btn-primary cmn_btn lg-in">hire writer</a>
                             </div>
                         </div>
                     </div>

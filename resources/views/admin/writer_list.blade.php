@@ -54,8 +54,14 @@
                                 <td>{{$writer->created_at->format('m-d-Y H:i')}}</td>
                                 <td>{{$writer->updated_at->format('m-d-Y H:i')}}</td>
                                 <td>
-                                    <a href="{{route('admin.writer.edit', $writer->id)}}"
-                                        class="btn btn-sm btn-info">Edit</a>
+                                    <form class="delete-form" method="POST"
+                                        action="{{route('admin.writer.destroy', $writer->id)}}">
+                                        @csrf
+                                        @method('delete')
+                                        <a href="{{route('admin.writer.edit', $writer->id)}}"
+                                            class="btn btn-sm btn-info">Edit</a>
+                                        <button class="btn btn-sm btn-action btn-danger delete">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
@@ -76,3 +82,27 @@
 
 
 @endsection
+
+@push('scripts')
+
+<script>
+    $(document).on('click', '.delete', function(e){
+        e.preventDefault();
+        var _this = $(this);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                _this.closest('form').submit();
+            }
+        })
+    })
+</script>
+
+@endpush

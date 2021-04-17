@@ -17,7 +17,6 @@ Route::get('/', 'FrontController@home')->name('/');
 Route::get('home', 'FrontController@home')->name('home');
 Route::get('testimonials', 'FrontController@testimonials')->name('testimonials');
 Route::get('about-us', 'FrontController@aboutUs')->name('about-us');
-Route::get('job', 'FrontController@job')->name('job');
 Route::get('writer', 'FrontController@writer')->name('writer');
 
 
@@ -29,6 +28,12 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('logout', 'AuthController@logout')->name('logout');
+    // Route::get('job', 'FrontController@job')->name('job');
+    Route::resource('job', 'JobController');
+
+    Route::get('dashboard', 'FrontController@profile')->name('dashboard');
+    Route::get('profile', 'FrontController@profile')->name('profile');
+    Route::put('profile/update', 'FrontController@updateProfile')->name('profile.update');
 });
 
 

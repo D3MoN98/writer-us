@@ -73,4 +73,14 @@ class User extends Authenticatable
             return true;
         return false;
     }
+
+    /**
+     * Get all of the jobs for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function jobs()
+    {
+        return $this->hasMany('App\Job');
+    }
 }

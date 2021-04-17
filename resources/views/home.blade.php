@@ -403,7 +403,7 @@
                     <a href="" class="btn btn-primary cmn_btn " data-toggle="modal" data-target="#loginModal">log in</a>
                     @endguest
 
-                    <a href="{{route('job')}}" class="btn btn-primary cmn_btn lg-in">hire
+                    <a href="{{route('job.create')}}" class="btn btn-primary cmn_btn lg-in">hire
                         writer</a> </div>
             </div>
         </div>
