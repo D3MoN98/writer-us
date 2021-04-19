@@ -59,14 +59,51 @@ var swiper = new Swiper(".trends-slider", {
     },
 });
 
+// var swiper = new Swiper(".thrpy-slider", {
+//     slidesPerView: 3,
+//     loop: true,
+//     spaceBetween: 30,
+//     autoplay: {
+//         delay: 2500,
+//         disableOnInteraction: false,
+//     },
+//     autoHeight: true,
+//     calculateHeight: true,
+//     simulateTouch: false,
+//     navigation: {
+//         nextEl: ".swiper-button-next",
+//         prevEl: ".swiper-button-prev",
+//     },
+//     breakpoints: {
+//         320: {
+//             slidesPerView: 1,
+//             spaceBetween: 5,
+//         },
+//         767: {
+//             slidesPerView: 2,
+//             spaceBetween: 15,
+//         },
+
+//         991: {
+//             slidesPerView: 2,
+//             spaceBetween: 30,
+//         },
+//         1080: {
+//             slidesPerView: 3,
+//             spaceBetween: 30,
+//         },
+//     },
+// });
+
 var swiper = new Swiper(".thrpy-slider", {
     slidesPerView: 3,
-    loop: true,
+    loop: false,
     spaceBetween: 30,
-    autoplay: {
-        delay: 2500,
-        disableOnInteraction: false,
-    },
+
+    observer: true,
+    observeParents: true,
+
+    autoplay: false,
     autoHeight: true,
     calculateHeight: true,
     simulateTouch: false,
@@ -90,7 +127,7 @@ var swiper = new Swiper(".thrpy-slider", {
         },
         1080: {
             slidesPerView: 3,
-            spaceBetween: 30,
+            spaceBetween: 20,
         },
     },
 });

@@ -42,7 +42,7 @@ class JobController extends Controller
     {
         $job = $request->job;
         $job['user_id'] = Auth::id();
-        $job['writer_id'] = 1;
+        $job['writer_id'] = $job['writer_id'] ?? 1;
         $job['price'] = Writer::find(1)->cost * $job['pages'];
 
         $job_id = Job::create($job)->id;

@@ -19,12 +19,14 @@ class CreateJobsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('writer_id')->unsigned();
             $table->foreign('writer_id')->references('id')->on('writers')->onDelete('cascade');
-            $table->string('service')->nullable();
+            $table->string('document_type')->nullable();
+            $table->string('academic_level')->nullable();
             $table->string('subject')->nullable();
             $table->integer('pages')->nullable();
             $table->text('topic')->nullable();
             $table->text('paper_instructions')->nullable();
             $table->dateTime('deadline')->nullable();
+            $table->string('urgency')->nullable();
             $table->float('price');
             $table->enum('status', ['processing', 'in_progress', 'released', 'cancelled']);
             $table->softDeletes();

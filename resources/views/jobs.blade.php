@@ -24,37 +24,38 @@
             <div class="tab-content">
                 <div class="tab-pane fade show active">
                     <div class="row">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Service</th>
-                                    <th>Subject</th>
-                                    <th>Writer</th>
-                                    <th>Pages</th>
-                                    <th>Deadline</th>
-                                    <th>Created</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($jobs as $job)
-                                <tr>
-                                    <td scope="row">{{$job->id}}</td>
-                                    <td>{{$job->service}}</td>
-                                    <td>{{$job->subject}}</td>
-                                    <td>{{$job->writer->name}}</td>
-                                    <td>{{$job->pages}}</td>
-                                    <td>{{date('m/d/Y', strtotime($job->deadline))}}</td>
-                                    <td>{{$job->created_at->format('m/d/Y')}}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"
-                                                style="font-weight: bolder"></i></button>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <div class="col-12">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Subject</th>
+                                        <th>Writer</th>
+                                        <th>Pages</th>
+                                        <th>Urgency</th>
+                                        <th>Created</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($jobs as $job)
+                                    <tr>
+                                        <td scope="row">{{$job->id}}</td>
+                                        <td>{{$job->subject}}</td>
+                                        <td>{{$job->writer->name}}</td>
+                                        <td>{{$job->pages}}</td>
+                                        <td>{{$job->urgency}}</td>
+                                        <td>{{$job->created_at->format('m/d/Y')}}</td>
+                                        <td>
+                                            <a href="{{route('job.edit', $job->id)}}" type="button"
+                                                class="btn btn-sm btn-primary"><i class="fa fa-edit"
+                                                    style="font-weight: bolder"></i></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
