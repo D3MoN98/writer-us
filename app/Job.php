@@ -28,4 +28,10 @@ class Job extends Model
     {
         return $this->belongsTo('App\Writer');
     }
+
+
+    public function payment()
+    {
+        return $this->morphOne('App\Payment', 'paymentable');
+    }
 }

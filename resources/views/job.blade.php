@@ -1,6 +1,7 @@
 @extends('layout.app')
 
 @stack('styles')
+<link rel="stylesheet" href="{{asset('css/card-js.min.css')}}" />
 <style>
     #multistepsform input.error,
     #multistepsform textarea.error,
@@ -50,6 +51,7 @@
                 <li class="active">Place Order</li>
                 <li>Choose Your Writer</li>
                 <li>Order Complete</li>
+                <li>Payment</li>
             </ul>
             <!-- fieldsets -->
             <fieldset>
@@ -322,9 +324,72 @@
                                 </div>
                                 <br>
                                 <p>The funds will be held in your account until you release them. </p>
-                                <input type="submit" name="submit" class="submit action-button"
-                                    value="Proceed to checkout" />
+
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="button" name="next" class="next action-button" class="submit action-button"
+                    value="Proceed to checkout" />
+            </fieldset>
+
+            <fieldset>
+                <h3 class="text-center">Check your order and add funds to your balance</h3>
+                <div class="row card-js">
+                    <div class="col-md-6 frm-in">
+                        <div class="frm-otr">
+                            <div class="form-group">
+                                <label>Name on Card</label>
+                                <input class='name form-control' size='4' type='text' required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 frm-in">
+                        <div class="frm-otr">
+                            <div class="form-group">
+                                <label>Card Number</label>
+                                <input autocomplete='off' class='card-number form-control card-num' name="card_number"
+                                    size='20' type='text' required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 frm-in">
+                        <div class="frm-otr">
+                            <div class="form-group">
+                                <label>CVC</label>
+                                <input autocomplete='off' class='cvc form-control card-cvc' name="card_cvv"
+                                    placeholder='e.g 595' size='4' type='text' required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 frm-in">
+                        <div class="frm-otr">
+                            <div class="form-group">
+                                <label>Expiration Month</label>
+                                <input class='expiry-month form-control card-expiry-month' placeholder='MM' size='2'
+                                    name="card_exp_month" type='text' required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 frm-in">
+                        <div class="frm-otr">
+                            <div class="form-group">
+                                <label>Expiration Year</label>
+                                <input class='expiry-year form-control card-expiry-year' placeholder='YYYY' size='4'
+                                    name="card_exp_year" type='text' required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <input type="submit" name="submit" class="submit action-button" value="Make Payment" />
                         </div>
                     </div>
                 </div>
@@ -348,13 +413,11 @@
 		current_fs = $(this).parent();
 
         let isValid = $("#multistepsform").valid();
-        // console.log(isValid);
-        // let isValid = true;
-        // current_fs.children("[required]").each(function(i, e) {
-        //     const valid = current_fs.validate().element(jQuery(e));
-        //     if (!valid)
-        //         isValid = false;
-        // });
+        current_fs.children("[required]").each(function(i, e) {
+            const valid = current_fs.validate().element(jQuery(e));
+            if (!valid)
+                isValid = false;
+        });
 
 		next_fs = $(this).parent().next();
 
@@ -440,5 +503,7 @@
         $(this).closest('fieldset').find('.next').trigger('click');
     })
 </script>
+
+<script src="{{asset('js/card-js.min.js')}}"></script>
 
 @endpush
