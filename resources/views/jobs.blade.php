@@ -33,8 +33,9 @@
                                         <th>Writer</th>
                                         <th>Pages</th>
                                         <th>Urgency</th>
+                                        <th>Price</th>
                                         <th>Created</th>
-                                        <th>Action</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,10 +46,11 @@
                                         <td>{{$job->writer->name}}</td>
                                         <td>{{$job->pages}}</td>
                                         <td>{{$job->urgency}}</td>
+                                        <td>{{$job->price}}</td>
                                         <td>{{$job->created_at->format('m/d/Y')}}</td>
-                                        <td>
+                                        <td class="text-center">
                                             <a href="{{route('job.edit', $job->id)}}" type="button"
-                                                class="btn btn-sm btn-primary"><i class="fa fa-edit"
+                                                class="btn btn-sm btn-link text-secondary"><i class="fa fa-eye"
                                                     style="font-weight: bolder"></i></a>
                                         </td>
                                     </tr>

@@ -14,6 +14,7 @@ use Stripe;
 
 class JobController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -33,7 +34,14 @@ class JobController extends Controller
     public function create()
     {
         $writers = Writer::all();
-        return view('job')->with(['writers' => $writers]);
+        $job = new Job();
+        return view('job')->with([
+            'writers' => $writers,
+            'document_types' => $job->document_types(),
+            'urgencies' => $job->urgencies(),
+            'subjects' => $job->subjects(),
+            'academic_levels' => $job->academic_levels(),
+        ]);
     }
 
     /**
@@ -50,7 +58,7 @@ class JobController extends Controller
             $job = $request->job;
             $job['user_id'] = Auth::id();
             $job['writer_id'] = $job['writer_id'] ?? 1;
-            $job['price'] = Writer::find(1)->cost * $job['pages'];
+            $job['price'] = Writer::find(1)->cost + (int) $job['pages'] * 7 + (int) $this->urgencyCost($job['urgency']);
 
             $stripe = new \Stripe\StripeClient(env('STRIPE_API_KEY'));
             $token = $stripe->tokens->create([
@@ -110,6 +118,47 @@ class JobController extends Controller
         }
     }
 
+    public function urgencyCost($urgency)
+    {
+        switch ($urgency) {
+            case '30 Days':
+                $urgency_price = 0;
+                break;
+            case '14 Days':
+                $urgency_price = 0;
+                break;
+            case '10 Days':
+                $urgency_price = 0;
+                break;
+            case '7 Days':
+                $urgency_price = 10;
+                break;
+            case '5 Days':
+                $urgency_price = 10;
+                break;
+            case '3 Days':
+                $urgency_price = 20;
+                break;
+            case '2 Days':
+                $urgency_price = 20;
+                break;
+            case '24 Hours':
+                $urgency_price = 30;
+                break;
+            case '16 Hours':
+                $urgency_price = 30;
+                break;
+            case '12 Hours':
+                $urgency_price = 30;
+                break;
+            case '5 Hours':
+                $urgency_price = 30;
+                break;
+        }
+
+        return $urgency_price;
+    }
+
     /**
      * Display the specified resource.
      *
@@ -129,7 +178,15 @@ class JobController extends Controller
      */
     public function edit($id)
     {
-        //
+        $job = Job::find($id);
+
+        return view('job_edit')->with([
+            'job' => $job,
+            'document_types' => $job->document_types(),
+            'urgencies' => $job->urgencies(),
+            'subjects' => $job->subjects(),
+            'academic_levels' => $job->academic_levels(),
+        ]);
     }
 
     /**

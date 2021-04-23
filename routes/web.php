@@ -42,11 +42,11 @@ Route::namespace('Admin')->prefix('admin/')->name('admin.')->group(function () {
     Route::middleware(['guest'])->group(function () {
         Route::get('login', 'AuthController@login')->name('login');
         Route::post('login-action', 'AuthController@loginAction')->name('login-action');
-        Route::get('logout', 'AuthController@logout')->name('logout');
     });
 
     Route::middleware(['admin'])->group(function () {
         Route::get('dashboard', 'AuthController@dashboard')->name('dashboard');
         Route::resource('writer', 'WriterController');
+        Route::resource('job', 'JobController')->except(['store', 'destroy', 'create']);
     });
 });

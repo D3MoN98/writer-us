@@ -25,7 +25,7 @@
                         <h6 class="text-overflow m-0">Welcome!</h6>
                     </div>
                     <div class="dropdown-divider"></div>
-                    <a href="{{route('admin.logout')}}" class="dropdown-item">
+                    <a href="{{route('logout')}}" class="dropdown-item">
                         <i class="ni ni-user-run"></i>
                         <span>Logout</span>
                     </a>
@@ -63,6 +63,12 @@
                 <li class="nav-item">
                     <a href="{{route('admin.writer.index')}}" class="nav-link">
                         <i class="ni ni-tv-2 text-primary"></i> Writer
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{route('admin.job.index')}}" class="nav-link">
+                        <i class="ni ni-tv-2 text-primary"></i> Jobs
                     </a>
                 </li>
             </ul>

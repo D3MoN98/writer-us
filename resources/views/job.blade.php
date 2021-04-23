@@ -62,33 +62,18 @@
                                 <label>Document Type</label>
                                 <select name="job[document_type]" required>
                                     <option value="">Select a document type</option>
-                                    <option value="Essay">Essay</option>
-                                    <option value="Tem Paper">tem Paper</option>
-                                    <option value="Research Paper">Research Paper</option>
-                                    <option value="Research Report">research Report</option>
-                                    <option value="Coursework">Coursework</option>
-                                    <option value="Book report">Book report</option>
-                                    <option value="Book Review">Book Review</option>
-                                    <option value="Movie Review">Movie Review</option>
-                                    <option value="Research Summary">Research Summary</option>
-                                    <option value="Dissertation">Dissertation</option>
-                                    <option value="Thesis">Thesis</option>
-                                    <option value="Thesis Proposal">Thesis Proposal</option>
-                                    <option value="Project Proposal">Project Proposal</option>
-                                    <option value="Dissertation Chapter-Abstract">Dissertation Chapter-Abstract</option>
-                                    <option value="Dissertation Chapter-AbstractA">Dissertation Chapter-AbstractA
-                                    </option>
+                                    @foreach ($document_types as $item)
+                                    <option value="{{$item}}">{{$item}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Academic Level :</label>
                                 <select name="job[academic_level]" required>
                                     <option value="">Select an academic level</option>
-                                    <option value="School">School</option>
-                                    <option value="College">College</option>
-                                    <option value="University">University</option>
-                                    <option value="Masters">Masters</option>
-                                    <option value="PhD">PhD</option>
+                                    @foreach ($academic_levels as $item)
+                                    <option value="{{$item}}">{{$item}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             {{-- <div class="form-group">
@@ -108,52 +93,19 @@
                                 <label>Select your subject :</label>
                                 <select name="job[subject]" required>
                                     <option value="">Select a subject</option>
-                                    <option value="Accounting">Accounting</option>
-                                    <option value="Anthropology">Anthropology</option>
-                                    <option value="Architecture">Architecture</option>
-                                    <option value="Theatre and Film">Theatre and Film</option>
-                                    <option value="Biology">Biology</option>
-                                    <option value="Entrepreneurship">Entrepreneurship</option>
-                                    <option value="Computer Science">Computer Science</option>
-                                    <option value="Criminology">Criminology</option>
-                                    <option value="Economics">Economics</option>
-                                    <option value="Education">Education</option>
-                                    <option value="Engineering">Engineering</option>
-                                    <option value="Ethics">Ethics</option>
-                                    <option value="Finance">Finance</option>
-                                    <option value="Geography">Geography</option>
-                                    <option value="Healthcare">Healthcare</option>
-                                    <option value="History">History</option>
-                                    <option value="Legal Issues">Legal Issues</option>
-                                    <option value="Linguistics">Linguistics</option>
-                                    <option value="Literature">Literature</option>
-                                    <option value="Management">Management</option>
-                                    <option value="Marketing">Marketing</option>
-                                    <option value="Mathematics">Mathematics</option>
-                                    <option value="Music">Music</option>
-                                    <option value="Nursing">Nursing</option>
-                                    <option value="Psychology">Psychology</option>
-                                    <option value="Sociology">Sociology</option>
-                                    <option value="Sport">Sport</option>
-                                    <option value="Technology">Technology</option>
-                                    <option value="Tourism">Tourism</option>
+                                    @foreach ($subjects as $item)
+                                    <option value="{{$item}}">{{$item}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Urgency :</label>
                                 <select name="job[urgency]" required>
                                     <option value="">Select a urgency</option>
-                                    <option value="30 Days">30 Days</option>
-                                    <option value="14 Days">14 Days</option>
-                                    <option value="10 Days">10 Days</option>
-                                    <option value="7 Days">7 Days</option>
-                                    <option value="5 Days">5 Days</option>
-                                    <option value="3 Days">3 Days</option>
-                                    <option value="2 Days">2 Days</option>
-                                    <option value="24 Hours">24 Hours</option>
-                                    <option value="16 Hours">16 Hours</option>
-                                    <option value="12 Hours">12 Hours</option>
-                                    <option value="5 Hours">5 Hours</option>
+                                    @foreach ($urgencies as $item)
+                                    <option data-urgency-price="{{$item['cost']}}" value="{{$item['value']}}">
+                                        {{$item['value']}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
@@ -188,7 +140,10 @@
 
             <fieldset>
                 <div class="frm-slide case-sec choose-sec">
-                    <h3 class="text-center">Find the best writer for your paper below.</h3>
+                    <div class="d-flex justify-content-between">
+                        <h3 class="text-center">Find the best writer for your paper below.</h3>
+                        <button type="button" class="btn btn-outline-primary previous">Edit Order</button>
+                    </div>
                     <div class="testimonial-outr">
                         <div class="thrpy-slider swiper-container">
                             <div class="swiper-wrapper">
@@ -213,7 +168,8 @@
                                             <div>
                                                 <h2>{{$writer->success_rate}}%</h2>
                                                 <p>Success Rate</p>
-                                            </div> <button type="button" data-writer="{{$writer->id}}"
+                                            </div> <button type="button" data-writer-cost="{{$writer->cost}}"
+                                                data-writer="{{$writer->id}}" data-writer-name="{{$writer->name}}"
                                                 class="btn btn-primary cmn_btn writer-select">Accept</button>
                                         </div>
                                     </div>
@@ -227,6 +183,7 @@
                     </div>
                 </div>
                 <input type="text" style="visibility: hidden" name="job[writer_id]" required>
+                <input type="hidden" name="writer_cost">
                 <input type="button" name="next" class="next action-button" value="Check your order" />
             </fieldset>
 
@@ -270,11 +227,10 @@
                                 <div class="wrtr-img"> <img class="img-fluid" src="{{asset('images/.png')}}" alt="">
                                 </div>
                                 <div class="wrtr-txt">
-                                    <h3>Dr. Raychelle</h3>
-                                    <p>№5 In global rating</p>
+                                    <h3 class="writer_name_overview">Dr. Raychelle</h3>
                                 </div>
                                 <div class="wrtr-prc">
-                                    <h3>$90</h3>
+                                    <h3>$ <span class="writer_cost_overview">90</span></h3>
                                 </div>
                             </div>
                         </div>
@@ -314,13 +270,28 @@
                                 <div class="order-in">
                                     <h4>Paper price</h4>
                                     <h5>
-                                        $28.00</h5>
-                                </div> <span>1 page × $28.00</span>
+                                        $7</h5>
+                                </div> <span> <span class="pages_overview">1</span> page × $7</span>
                             </div>
+
+                            <div class="order urgency_price_overview_otr d-none">
+                                <div class="order-in">
+                                    <h4>Urgency price</h4>
+                                    <h5>$ <span class="urgency_price_overview">5</span></h5>
+                                </div>
+                            </div>
+
+                            <div class="order">
+                                <div class="order-in">
+                                    <h4>Writer Cost</h4>
+                                    <h5>$ <span class="writer_cost_overview">5</span></h5>
+                                </div>
+                            </div>
+
                             <div class="order">
                                 <div class="order-in">
                                     <h4>Total price</h4>
-                                    <h5>$90</h5>
+                                    <h5>$ <span class="total_price_overview">90</span></h5>
                                 </div>
                                 <br>
                                 <p>The funds will be held in your account until you release them. </p>
@@ -456,8 +427,8 @@
 	$(".previous").click(function() {
 		if(animating) return false;
 		animating = true;
-		current_fs = $(this).parent();
-		previous_fs = $(this).parent().prev();
+		current_fs = $(this).closest('fieldset');
+		previous_fs = $(this).closest('fieldset').prev();
 		$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
 		previous_fs.show();
 		current_fs.animate({
@@ -468,11 +439,12 @@
 				left = (1 - now) * 50 + "%";
 				opacity = 1 - now;
 				current_fs.css({
-					left: left
+					left: left,
 				});
 				previous_fs.css({
-					transform: "scale(" + scale + ")",
-					opacity: opacity
+                    transform: "scale(" + scale + ")",
+					opacity: opacity,
+                    'position': 'relative'
 				});
 			},
 			duration: 800,
@@ -493,12 +465,27 @@
         $('.urgency_overview').text($('select[name="job[urgency]"] option:selected').text());
         $('.subject_overview').text($('select[name="job[subject]"] option:selected').text());
         $('.pages_overview').text($('input[name="job[pages]"]').val());
+        var urgency_price = parseFloat($('select[name="job[urgency]"] option:selected').data('urgency-price'));
+
+        if (urgency_price > 0) {
+            $('.urgency_price_overview_otr').removeClass('d-none');
+            $('.urgency_price_overview').text(urgency_price);
+        } else {
+            $('.urgency_price_overview_otr').addClass('d-none');
+        }
+
+        var total_price = parseInt(urgency_price + parseInt($('input[name="job[pages]"]').val()) * 7) + parseInt($('input[name="writer_cost"]').val());
+
+        $('.total_price_overview').text(total_price);
     }
 
     $(document).on('click', '.writer-select', function(){
         var writer_id = $(this).data('writer');
 
         $('input[name="job[writer_id]"]').val(writer_id);
+        $('input[name="writer_cost"]').val($(this).data('writer-cost'));
+        $('.writer_cost_overview').text($(this).data('writer-cost'));
+        $('.writer_name_overview').text($(this).data('writer-name'));
 
         $(this).closest('fieldset').find('.next').trigger('click');
     })
