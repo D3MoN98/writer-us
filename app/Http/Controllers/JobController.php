@@ -86,6 +86,7 @@ class JobController extends Controller
             ]);
 
             if ($charge['status'] === 'succeeded') {
+                $job['payment_status'] = 'paid';
                 $job = Job::create($job);
 
                 $job->payment()->create([
@@ -99,6 +100,7 @@ class JobController extends Controller
                     foreach ($request->file('job_file') as $file) {
                         $path = $file->store('storage/jobs', 'public');
                         JobFile::create([
+                            'added_by' => Auth::id(),
                             'job_id' => $job->id,
                             'file' => $path
                         ]);
@@ -210,5 +212,24 @@ class JobController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function refund($id)
+    {
+        $job = Job::find($id);
+
+        $payment = $job->payment;
+
+        $stripe = new \Stripe\StripeClient(env('STRIPE_API_KEY'));
+
+        $response = $stripe->refunds->create([
+            'charge' => $payment->charge_id,
+        ]);
+
+        $job->update([
+            'payment_status' => 'refunded'
+        ]);
+
+        return back()->withSuccess('Successfuly refunded');
     }
 }

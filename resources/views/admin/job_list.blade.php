@@ -41,6 +41,7 @@
                                 <th>Pages</th>
                                 <th>Urgency</th>
                                 <th>Price</th>
+                                <th>Payment</th>
                                 <th>Created</th>
                                 <th>Action</th>
                             </tr>
@@ -53,10 +54,10 @@
                                 <td>{{$job->writer->name}}</td>
                                 <td>{{$job->pages}}</td>
                                 <td>{{$job->urgency}}</td>
-                                <td>{{$job->price}}</td>
+                                <td>{{$job->payment_Status}}</td>
                                 <td>{{$job->created_at->format('m/d/Y')}}</td>
                                 <td>
-                                    <a href="{{route('job.edit', $job->id)}}" type="button"
+                                    <a href="{{route('admin.job.edit', $job->id)}}" type="button"
                                         class="btn btn-sm btn-primary"><i class="fa fa-edit"
                                             style="font-weight: bolder"></i></a>
                                 </td>

@@ -10,7 +10,7 @@
         <div class="bnr_content text-left">
             <div class="container">
                 <div class="wow fadeInLeft">
-                    <h1>About Writers Us
+                    <h1>Testimonials
                     </h1>
                 </div>
             </div>

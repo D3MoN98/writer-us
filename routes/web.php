@@ -31,6 +31,9 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('job', 'FrontController@job')->name('job');
     Route::resource('job', 'JobController');
 
+    Route::put('job/{id}/refund', 'JobController@refund')->name('job.refund');
+
+
     Route::get('dashboard', 'FrontController@profile')->name('dashboard');
     Route::get('profile', 'FrontController@profile')->name('profile');
     Route::put('profile/update', 'FrontController@updateProfile')->name('profile.update');
@@ -48,5 +51,6 @@ Route::namespace('Admin')->prefix('admin/')->name('admin.')->group(function () {
         Route::get('dashboard', 'AuthController@dashboard')->name('dashboard');
         Route::resource('writer', 'WriterController');
         Route::resource('job', 'JobController')->except(['store', 'destroy', 'create']);
+        Route::resource('customer', 'CustomerController')->except(['store', 'destroy', 'create', 'edit']);
     });
 });

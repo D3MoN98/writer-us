@@ -34,6 +34,7 @@
                                         <th>Pages</th>
                                         <th>Urgency</th>
                                         <th>Price</th>
+                                        <th>Payment</th>
                                         <th>Created</th>
                                         <th class="text-center">Action</th>
                                     </tr>
@@ -47,11 +48,19 @@
                                         <td>{{$job->pages}}</td>
                                         <td>{{$job->urgency}}</td>
                                         <td>{{$job->price}}</td>
+                                        <td>{{$job->payment_status}}</td>
                                         <td>{{$job->created_at->format('m/d/Y')}}</td>
                                         <td class="text-center">
-                                            <a href="{{route('job.edit', $job->id)}}" type="button"
-                                                class="btn btn-sm btn-link text-secondary"><i class="fa fa-eye"
-                                                    style="font-weight: bolder"></i></a>
+                                            <form action="{{route('job.refund', $job->id)}}" method="post">
+                                                @csrf
+                                                @method('put')
+                                                <a href="{{route('job.edit', $job->id)}}" type="button"
+                                                    class="btn btn-sm btn-outline-primary">Edit</a>
+                                                @if ($job->payment_status != 'refunded')
+                                                <button type="submit"
+                                                    class="btn btn-sm btn-outline-danger">Refund</button>
+                                                @endif
+                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -63,6 +72,5 @@
             </div>
         </div>
     </div>
-</div>
 
-@endsection
+    @endsection

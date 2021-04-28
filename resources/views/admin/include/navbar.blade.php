@@ -61,6 +61,12 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{route('admin.customer.index')}}" class="nav-link">
+                        <i class="ni ni-tv-2 text-primary"></i> Customer
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{route('admin.writer.index')}}" class="nav-link">
                         <i class="ni ni-tv-2 text-primary"></i> Writer
                     </a>

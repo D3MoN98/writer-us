@@ -15,7 +15,7 @@ class Job extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'writer_id', 'document_type', 'academic_level', 'subject', 'pages', 'topic', 'paper_instructions', 'deadline', 'urgency', 'price', 'status'
+        'user_id', 'writer_id', 'document_type', 'academic_level', 'subject', 'pages', 'topic', 'paper_instructions', 'deadline', 'urgency', 'payment_status', 'price', 'status'
     ];
 
     protected $document_types = ['Essay', 'Tem Paper', 'Research Paper', 'Research Report', 'Coursework', 'Book Report', 'Book Review', 'Movie Review', 'Research Summary', 'Dissertation', 'Thesis', 'Thesis Proposal', 'Project Proposal', 'Dissertation Chapter-Abstract', 'Dissertation Chapter-Abstract'];
@@ -75,5 +75,15 @@ class Job extends Model
     public function payment()
     {
         return $this->morphOne('App\Payment', 'paymentable');
+    }
+
+    /**
+     * Get all of the job_files for the Job
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function job_files()
+    {
+        return $this->hasMany('App\JobFile');
     }
 }

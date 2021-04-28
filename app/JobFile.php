@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class JobFile extends Model
 {
-    protected $fillable = ['job_id', 'file'];
+    protected $fillable = ['added_by', 'job_id', 'file'];
 }

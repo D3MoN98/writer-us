@@ -58,6 +58,16 @@
     </script>
     @endif
 
+    @error('error')
+    <script>
+        Swal.fire(
+                'Oops!',
+                '{{$message}}',
+                'error'
+            );
+    </script>
+    @enderror
+
 </body>
 
 </html>

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Job;
+use App\JobFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JobController extends Controller
 {
@@ -41,7 +43,15 @@ class JobController extends Controller
      */
     public function edit($id)
     {
-        //
+        $job = Job::find($id);
+
+        return view('admin.job_edit')->with([
+            'job' => $job,
+            'document_types' => $job->document_types(),
+            'urgencies' => $job->urgencies(),
+            'subjects' => $job->subjects(),
+            'academic_levels' => $job->academic_levels(),
+        ]);
     }
 
     /**
@@ -53,6 +63,18 @@ class JobController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $job_files = [];
+        if ($request->hasFile('job_file')) {
+            foreach ($request->file('job_file') as $file) {
+                $path = $file->store('storage/jobs', 'public');
+                JobFile::create([
+                    'added_by' => Auth::id(),
+                    'job_id' => $id,
+                    'file' => $path
+                ]);
+            }
+        }
+
+        return back()->withSuccess('Your job successfuly submitted');
     }
 }

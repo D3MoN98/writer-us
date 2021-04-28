@@ -40,7 +40,17 @@
                                     class="btn btn-primary cmn_btn lg-in">hire writer</a>
                                 @endguest
                                 @auth
-                                <a href="{{route('logout')}}" class="btn btn-primary cmn_btn">log Out</a>
+                                <div class="dropdown open">
+                                    <button class="btn cmn_btn dropdown-toggle" type="button" id="triggerId"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{explode(' ', Auth::user()->name)[0]}}
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="triggerId">
+                                        <a class="dropdown-item" href="{{route('profile')}}">Profile</a>
+                                        <a class="dropdown-item" href="{{route('job.index')}}">Jobs</a>
+                                        <a class="dropdown-item" href="{{route('logout')}}">log Out</a>
+                                    </div>
+                                </div>
                                 <a href="{{route('job.create')}}" class="btn btn-primary cmn_btn lg-in">hire writer</a>
                                 @endauth
                             </div>
