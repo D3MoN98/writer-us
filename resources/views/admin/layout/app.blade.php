@@ -20,6 +20,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('admin/css/main.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('admin/assets/css/argon-dashboard.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('admin/css/style.css')}}">
+
+    @stack('styles')
 </head>
 
 <body class="g-sidenav-show g-sidenav-pinned">

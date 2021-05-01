@@ -77,6 +77,18 @@
                         <i class="ni ni-tv-2 text-primary"></i> Jobs
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{route('admin.blog.index')}}" class="nav-link">
+                        <i class="ni ni-tv-2 text-primary"></i> Blogs
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{route('admin.blog-category.index')}}" class="nav-link">
+                        <i class="ni ni-tv-2 text-primary"></i> Blog Categories
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

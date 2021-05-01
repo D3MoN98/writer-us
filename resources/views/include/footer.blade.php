@@ -30,7 +30,7 @@
                             <li> <a href="javascript:void(0);">Management</a> </li>
                             <li> <a href="javascript:void(0);">Corporate Responsibility</a> </li>
                             <li> <a href="javascript:void(0);">Analyst Coverage</a> </li>
-                            <li> <a href="javascript:void(0);">Blog</a> </li>
+                            <li> <a href="{{route('blog.index')}}">Blog</a> </li>
                             <li> <a href="javascript:void(0);">News</a> </li>
                             <li> <a href="javascript:void(0);">Careers</a> </li>
                         </ul>

@@ -2303,3 +2303,267 @@ input[type="date"]{
 	/* width: 65%; */
 	/* margin: auto; */
 }
+
+
+
+
+/*blg-detal*/
+.sngl-blog-content p {
+	
+	margin-bottom: 20px;
+	
+}
+.blog-sec h2 {
+	font-size: 40px;
+}
+.lat-blog-sec  {
+	padding: 70px 0;
+}
+.has-search .form-control {
+	width: 100%;
+	height: 50px;
+	border-radius: 5px;
+	background: #fbf9e4 url('../images/srch.png') no-repeat;
+	background-size: 23px;
+	background-position: 90% center;
+	border: 1px solid #1f78dc;
+}
+
+.shp_krtm {
+	border: 1px solid #1f78dc;
+	padding: 20px;
+	border-radius: 5px;
+	background: #fbf9e4;
+}
+.qussn ul  {
+	list-style: none;
+}
+.qussn ul li a img {
+	width: 100%;
+	margin-bottom: 10px;
+}
+.qussn ul li a  {
+	color: #000;
+    
+}
+
+.qussn ul li a span {
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 1.3;font-family: 'Roboto', sans-serif;
+}
+.qussn h1 {
+	font-size: 30px;
+	color: #1f78dc;
+	font-weight: 500;
+	padding-bottom: 10px;font-family: 'Roboto', sans-serif;
+}
+.qussn ul li {
+	margin-bottom: 20px;
+}
+.find-in {
+	margin: 20px 0;
+}
+.find-in img {
+	width: 100%;
+}
+.qussn .cat-list ul li {
+	margin-bottom: 13px;
+	border-bottom: 1px solid #000;
+}
+.qussn .cat-list ul li a {
+	color: #000;
+	padding-bottom: 12px;
+	display: block;
+	position: relative;
+	font-size: 17px;
+	font-family: 'Graphik Regular';
+}
+.blg-txt-1 {
+	padding-top: 20px;
+}
+.blg-txt-1 ul {
+	list-style: none;
+	display: flex;
+	align-items: center;
+	margin: 0;
+}
+.blg-txt-1 ul li {
+	margin-right: 20px;
+	line-height: 1;
+}
+.blg-txt-1 ul li span {
+	margin-left: 6px;
+	line-height: 1;
+	vertical-align: middle;
+}
+.sngl-blog-content {
+	padding-top: 20px;
+}
+.blg-txt-1 ul li a {
+	color: #000;font-family: 'Roboto', sans-serif;
+	
+}
+
+.reply-content a {
+	color: #1f78dc;
+	font-size: 16px;
+	font-weight: bold;
+	text-transform: uppercase;font-family: 'Roboto', sans-serif;
+}
+.wishlist-outr {
+	background: #fbf9e4;
+	padding: 20px;
+}
+.wishlist-outr h5{
+	font-size: 19px;
+	color: #1f78dc;
+	
+	padding-bottom: 10px;
+}
+.wishlist-outr ul {
+	list-style: none;
+	display: flex;
+}
+.wishlist-outr ul li a {
+	background: transparent;
+	border: 1px solid #000;
+	border-radius: 24px;
+	color: #000;
+	padding: 7px 24px;
+	line-height: 1;
+	font-family: 'Graphik Regular';
+}
+.wishlist-outr ul li {
+	margin-right: 10px;
+}
+.wishlist-outr.scl-wish {
+	background: transparent;
+	padding: 20px 0;
+}
+
+.wishlist-outr.scl-wish a {
+	background: #3c5b9b;
+	border-radius: 5px;
+	color: #fff;
+	border-color: #3c5b9b;
+	font-family: 'Graphik Regular';
+}
+.wishlist-outr.scl-wish a .fa {
+    margin-right: 5px;
+}
+.comment-innr {
+	display: flex;
+	padding: 20px 0;
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+}
+.reply-picc-bx {
+	margin-right: 20px;
+}
+.commn-btn.pulse.btn.btn-primary.bg-btn.tw-btn {
+	background: #2daae2;
+	border-color: #2daae2;
+}
+.commn-btn.pulse.btn.btn-primary.bg-btn.inn-btn {
+	background: #517ea3;
+	border-color: #517ea3;
+}
+.commn-btn.pulse.btn.btn-primary.bg-btn.link-btn {
+	background: #1c86bc;
+	border-color: #1c86bc;
+}
+.cmnnt-txt {
+	padding-top: 20px;
+}
+.cmnnt-txt h4 {
+	padding-bottom: 20px;
+}
+
+ .cus_frm input[type="submit"] {
+	font-size: 16px;font-family: 'Graphik Regular';
+     background: #1f78dc;
+     text-transform:uppercase;
+     padding: 10px 30px;color: #fff;border-color: transparent;
+}
+
+.qussn .cat-list ul li:last-child {
+	
+	border-bottom: 0;
+}
+.qussn .cat-list ul li:last-child a {
+	color: #000;
+	padding-bottom: 0;
+	
+}
+.qussn .cat-list ul li a::after {
+	background: url(../images/arw.png);
+	background-size: 100% 100%;
+	width: 20px;
+	height: 20px;
+	left: auto;
+	top: 5px;
+	content: '';
+	position: absolute;
+	right: 0;
+	
+}
+
+.pplr_img em {
+	display: block;
+	border-radius: 10px;
+	overflow: hidden;
+	line-height: 1;
+	margin-bottom: 10px;
+}
+
+
+.qussn .pplr_img ul li a img{
+	margin-bottom: 0;
+}
+
+.blog_btn_area {
+	margin-top: 30px;
+	margin-bottom: 40px;
+	position: relative;
+}
+.blog_btnn {
+	text-align: right;
+}
+.blog_btn_area::after {
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 6px;
+	width: 100%;
+	margin: auto;
+	content: "";
+	background-image: url(../images/patrn.png);
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: -1;
+}
+
+.blog_btnn .cmn_btn:hover{
+	background-color: #fff;
+}
+.test_row .testi-icon-txt img{
+	margin-left: 0 !important;
+}
+
+
+.our_time_sec.hww-sec .img_ar::after {
+	
+	animation: widthh 7s linear infinite;
+}
+
+
+
+@keyframes widthh {
+	0% {
+		width: 0px;
+	}
+	100% {
+		width: 755px;
+	}
+}

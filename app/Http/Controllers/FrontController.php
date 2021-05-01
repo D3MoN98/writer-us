@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Blog;
+use App\BlogCategory;
+use App\BlogComment;
 use App\User;
 use App\Writer;
 use Illuminate\Http\Request;
@@ -53,5 +56,65 @@ class FrontController extends Controller
         ]);
 
         return back()->withSuccess('Profile updated successfuly');
+    }
+
+    public function blogs(Request $request)
+    {
+        $blogs = Blog::paginate(1);
+
+        if ($request->search) {
+            $blogs = Blog::where('title', 'like', "%$request->search%")->orWhere('content', 'like', "%$request->search%")->paginate(1);
+        }
+
+        $blog_categories = BlogCategory::all()->sortBy('name');
+
+
+        return view('blogs')->with([
+            'blogs' => $blogs,
+            'blog_categories' => $blog_categories,
+        ]);
+    }
+
+
+    public function blog($slug)
+    {
+        $blog = Blog::findBySlug($slug);
+        $blogs = Blog::all();
+        $blog_categories = BlogCategory::all()->sortBy('name');
+
+
+
+        return view('blog_details')->with([
+            'blogs' => $blogs,
+            'blog' => $blog,
+            'blog_categories' => $blog_categories,
+
+        ]);
+    }
+
+
+
+    public function blogByCategory($slug)
+    {
+        $blogs = BlogCategory::findBySlug($slug)->blogs()->paginate(1);
+        $blog_categories = BlogCategory::all()->sortBy('name');
+
+
+        return view('blogs')->with([
+            'blogs' => $blogs,
+            'blog_categories' => $blog_categories,
+        ]);
+    }
+
+
+    public function add_comment(Request $request, $blog_id)
+    {
+        $comment = $request->comment;
+        $comment['user_id'] = Auth::id();
+        $comment['blog_id'] = $blog_id;
+
+        BlogComment::create($comment);
+
+        return redirect()->back()->withSuccess('Comment added');
     }
 }

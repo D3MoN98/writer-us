@@ -37,6 +37,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', 'FrontController@profile')->name('dashboard');
     Route::get('profile', 'FrontController@profile')->name('profile');
     Route::put('profile/update', 'FrontController@updateProfile')->name('profile.update');
+
+    Route::get('blog', 'FrontController@blogs')->name('blog.index');
+    Route::get('blog-category/{slug}', 'FrontController@blogByCategory')->name('blog-category.index');
+
+    Route::get('blog/{slug}', 'FrontController@blog')->name('blog.show');
+    Route::post('blog/{id}/comment/create', 'FrontController@add_comment')->name('blog.comment.create');
 });
 
 
@@ -52,5 +58,9 @@ Route::namespace('Admin')->prefix('admin/')->name('admin.')->group(function () {
         Route::resource('writer', 'WriterController');
         Route::resource('job', 'JobController')->except(['store', 'destroy', 'create']);
         Route::resource('customer', 'CustomerController')->except(['store', 'destroy', 'create', 'edit']);
+        Route::resource('blog', 'BlogController');
+        Route::post('blog/delete/image', 'BlogController@image_delete');
+
+        Route::resource('blog-category', 'BlogCategoryController');
     });
 });
