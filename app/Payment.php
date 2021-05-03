@@ -15,6 +15,7 @@ class Payment extends Model
         'charge_id',
         'amount',
         'status',
+        'type',
     ];
 
     /**

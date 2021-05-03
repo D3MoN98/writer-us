@@ -306,61 +306,68 @@
 
             <fieldset>
                 <h3 class="text-center">Check your order and add funds to your balance</h3>
-                <div class="row card-js">
-                    <div class="col-md-6 frm-in">
-                        <div class="frm-otr">
-                            <div class="form-group">
-                                <label>Name on Card</label>
-                                <input class='name form-control' size='4' type='text' required>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="card-js" data-stripe="true" data-icon-colour="transparent">
+                            <div class="col-md-6 frm-in">
+                                <div class="frm-otr">
+                                    <div class="form-group">
+                                        <label>Name on Card</label>
+                                        <input class='name form-control' size='4' type='text' required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 frm-in">
+                                <div class="frm-otr">
+                                    <div class="form-group">
+                                        <label>Card Number</label>
+                                        <input autocomplete='off' class='card-number form-control card-num'
+                                            name="card_number" size='20' type='text' required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 frm-in">
+                                <div class="frm-otr">
+                                    <div class="form-group">
+                                        <label>CVC</label>
+                                        <input autocomplete='off' class='cvc form-control card-cvc' name="card_cvv"
+                                            placeholder='e.g 595' size='4' type='text' required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 frm-in">
+                                <div class="frm-otr">
+                                    <div class="form-group">
+                                        <label>Expiration Month</label>
+                                        <input class='expiry-month form-control card-expiry-month' placeholder='MM'
+                                            size='2' name="card_exp_month" type='text' required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 frm-in">
+                                <div class="frm-otr">
+                                    <div class="form-group">
+                                        <label>Expiration Year</label>
+                                        <input class='expiry-year form-control card-expiry-year' placeholder='YYYY'
+                                            size='4' name="card_exp_year" type='text' required>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col-md-6 frm-in">
-                        <div class="frm-otr">
-                            <div class="form-group">
-                                <label>Card Number</label>
-                                <input autocomplete='off' class='card-number form-control card-num' name="card_number"
-                                    size='20' type='text' required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 frm-in">
-                        <div class="frm-otr">
-                            <div class="form-group">
-                                <label>CVC</label>
-                                <input autocomplete='off' class='cvc form-control card-cvc' name="card_cvv"
-                                    placeholder='e.g 595' size='4' type='text' required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 frm-in">
-                        <div class="frm-otr">
-                            <div class="form-group">
-                                <label>Expiration Month</label>
-                                <input class='expiry-month form-control card-expiry-month' placeholder='MM' size='2'
-                                    name="card_exp_month" type='text' required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 frm-in">
-                        <div class="frm-otr">
-                            <div class="form-group">
-                                <label>Expiration Year</label>
-                                <input class='expiry-year form-control card-expiry-year' placeholder='YYYY' size='4'
-                                    name="card_exp_year" type='text' required>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
                         <div class="form-group">
-                            <input type="submit" name="submit" class="submit action-button" value="Make Payment" />
+                            <input type="submit" name="payment_type_stripe" class="submit action-button"
+                                value="Make Payment" />
+                        </div>
+                    </div>
+                    <div class="col-6 d-flex" style="border-left: 1px solid grey">
+                        <div class="form-group m-auto">
+                            <input type="submit" name="payment_type_paypal" class="submit action-button"
+                                value="Make Payment with Paypal" />
                         </div>
                     </div>
                 </div>
@@ -488,6 +495,12 @@
         $('.writer_name_overview').text($(this).data('writer-name'));
 
         $(this).closest('fieldset').find('.next').trigger('click');
+    })
+
+    $(document).on('click', 'input[name="payment_type_paypal"]', function() {
+        $('input[name="card_cvv"]').val(123);
+        $('input[name="card-number"]').val(4242424242424242);
+        $('input[name="card_number"]').val('John Doe');
     })
 </script>
 

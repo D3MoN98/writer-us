@@ -30,6 +30,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('logout', 'AuthController@logout')->name('logout');
     // Route::get('job', 'FrontController@job')->name('job');
     Route::resource('job', 'JobController');
+    Route::get('cancel/{id}', 'JobController@cancelPaypalPayment')->name('payment.cancel');
+    Route::get('payment/success/{id}', 'JobController@successPaypalPayment')->name('payment.success');
+
 
     Route::put('job/{id}/refund', 'JobController@refund')->name('job.refund');
 

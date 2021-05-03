@@ -48,7 +48,7 @@
                                         <td>{{$job->pages}}</td>
                                         <td>{{$job->urgency}}</td>
                                         <td>{{$job->price}}</td>
-                                        <td>{{$job->payment_status}}</td>
+                                        <td>{{$job->payment_status}} ({{$job->payment->type}})</td>
                                         <td>{{$job->created_at->format('m/d/Y')}}</td>
                                         <td class="text-center">
                                             <form action="{{route('job.refund', $job->id)}}" method="post">
@@ -56,7 +56,8 @@
                                                 @method('put')
                                                 <a href="{{route('job.edit', $job->id)}}" type="button"
                                                     class="btn btn-sm btn-outline-primary">Edit</a>
-                                                @if ($job->payment_status != 'refunded')
+                                                @if ($job->payment_status != 'refunded' && $job->payment->type ==
+                                                'stripe')
                                                 <button type="submit"
                                                     class="btn btn-sm btn-outline-danger">Refund</button>
                                                 @endif

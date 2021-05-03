@@ -9,6 +9,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Stripe;
+use Srmklive\PayPal\Services\ExpressCheckout;
+
 
 
 
@@ -54,61 +56,93 @@ class JobController extends Controller
     {
         try {
 
-            // dd('20' . $request->get('card_exp_year'));
             $job = $request->job;
             $job['user_id'] = Auth::id();
             $job['writer_id'] = $job['writer_id'] ?? 1;
             $job['price'] = Writer::find(1)->cost + (int) $job['pages'] * 7 + (int) $this->urgencyCost($job['urgency']);
 
-            $stripe = new \Stripe\StripeClient(env('STRIPE_API_KEY'));
-            $token = $stripe->tokens->create([
-                'card' => [
-                    'number' => $request->get('card_number'),
-                    'exp_month' => $request->get('card_exp_month'),
-                    'exp_year' => $request->get('card_exp_year'),
-                    'cvc' => $request->get('card_cvv'),
-                ],
-            ]);
+            $job = Job::create($job);
 
-            // dd($token['id']);
 
-            if (!isset($token['id'])) {
-                return redirect()->back()->withErrors(['error' => 'something went wrong']);
+            $job_files = [];
+            if ($request->hasFile('job_file')) {
+                foreach ($request->file('job_file') as $file) {
+                    $path = $file->store('storage/jobs', 'public');
+                    JobFile::create([
+                        'added_by' => Auth::id(),
+                        'job_id' => $job->id,
+                        'file' => $path
+                    ]);
+                }
             }
 
-            Stripe\Stripe::setApiKey(env('STRIPE_API_KEY'));
-
-            $charge = Stripe\Charge::create([
-                "amount" => $job['price'],
-                "currency" => "inr",
-                "source" => $token['id'],
-                "description" => "Making test payment."
-            ]);
-
-            if ($charge['status'] === 'succeeded') {
-                $job['payment_status'] = 'paid';
-                $job = Job::create($job);
-
-                $job->payment()->create([
-                    'charge_id' => $charge['id'],
-                    'amount' => (float) ($charge['amount']),
-                    'status' => $charge['status']
+            if (isset($request->payment_type_stripe)) {
+                $stripe = new \Stripe\StripeClient(env('STRIPE_API_KEY'));
+                $token = $stripe->tokens->create([
+                    'card' => [
+                        'number' => $request->get('card_number'),
+                        'exp_month' => $request->get('card_exp_month'),
+                        'exp_year' => $request->get('card_exp_year'),
+                        'cvc' => $request->get('card_cvv'),
+                    ],
                 ]);
 
-                $job_files = [];
-                if ($request->hasFile('job_file')) {
-                    foreach ($request->file('job_file') as $file) {
-                        $path = $file->store('storage/jobs', 'public');
-                        JobFile::create([
-                            'added_by' => Auth::id(),
-                            'job_id' => $job->id,
-                            'file' => $path
-                        ]);
-                    }
+                // dd($token['id']);
+
+                if (!isset($token['id'])) {
+                    return redirect()->back()->withErrors(['error' => 'something went wrong']);
                 }
 
-                return back()->withSuccess('Your job successfuly submitted');
+                Stripe\Stripe::setApiKey(env('STRIPE_API_KEY'));
+
+                $charge = Stripe\Charge::create([
+                    "amount" => $job['price'],
+                    "currency" => "usd",
+                    "source" => $token['id'],
+                    "description" => "Making test payment."
+                ]);
+
+                if ($charge['status'] === 'succeeded') {
+
+                    $job->update([
+                        'payment_status' => 'paid'
+                    ]);
+
+                    $job->payment()->create([
+                        'charge_id' => $charge['id'],
+                        'amount' => (float) ($charge['amount']),
+                        'status' => $charge['status'],
+                        'type' => 'stripe'
+                    ]);
+
+                    return back()->withSuccess('Payment successfull');
+                }
+            } else if (isset($request->payment_type_paypal)) {
+
+                $data['items'] = [
+                    [
+                        'name' => "Job_$job->id",
+                        'price' => $job->price,
+                        'desc'  => "New job $job->id",
+                        'qty' => 1
+                    ]
+                ];
+
+                $data['invoice_id'] = $job->id;
+                $data['invoice_description'] = "Order #{$data['invoice_id']} Invoice";
+                $data['return_url'] = route('payment.success', $job->id);
+                $data['cancel_url'] = route('payment.cancel', $job->id);
+                $data['total'] = $job->price;
+
+                $provider = new ExpressCheckout;
+
+                $response = $provider->setExpressCheckout($data);
+
+                $response = $provider->setExpressCheckout($data, true);
+
+                return redirect($response['paypal_link']);
             }
+
 
             return redirect()->back()->withErrors(['error' => 'Something went wrong']);
         } catch (Exception $e) {
@@ -231,5 +265,51 @@ class JobController extends Controller
         ]);
 
         return back()->withSuccess('Successfuly refunded');
+    }
+
+
+    /**
+     * Responds with a welcome message with instructions
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function cancelPaypalPayment($id)
+    {
+        Job::find($id)->update([
+            'payment_status' => 'due'
+        ]);
+        return redirect()->route('job.create')->withErrors(['error' => 'something went wrong']);
+    }
+
+    /**
+     * Responds with a welcome message with instructions
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function successPaypalPayment(Request $request, $id)
+    {
+        $provider = new ExpressCheckout;
+
+        $response = $provider->getExpressCheckoutDetails($request->token);
+
+
+        if (in_array(strtoupper($response['ACK']), ['SUCCESS', 'SUCCESSWITHWARNING'])) {
+            $job = Job::find($id);
+
+            $job->update([
+                'payment_status' => 'paid'
+            ]);
+
+            $job->payment()->create([
+                'charge_id' => $response['TOKEN'],
+                'amount' => (float) ($job->price),
+                'status' => 'succeeded',
+                'type' => 'paypal'
+            ]);
+
+            return redirect()->route('job.create')->withSuccess('Payment successfull');
+        }
+
+        return redirect()->route('job.create')->withErrors(['error' => 'something went wrong']);
     }
 }
