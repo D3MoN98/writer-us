@@ -17,7 +17,7 @@
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link text-primary active" id="v-pills-profile-tab" href="{{route('profile')}}">Profile</a>
                 <a class="nav-link text-primary" href="{{route('job.index')}}">Jobs</a>
-                <a class="nav-link text-primary">Payment Method</a>
+                <a href="{{route('message')}}" class="nav-link text-primary">Send Message</a>
             </div>
         </div>
         <div class="col-9">

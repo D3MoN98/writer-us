@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WelcomeMail;
 use App\RoleUser;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -32,7 +34,7 @@ class AuthController extends Controller
     {
         $validator = $request->validate([
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'contact_no' => 'required|max:14',
             'password' => 'required_with:confirm_password|same:confirm_password|min:6',
             'confirm_password' => 'min:6',
@@ -50,6 +52,8 @@ class AuthController extends Controller
             'user_id' => $user->id,
             'role_id' => 2
         ]);
+
+        Mail::to($user->email)->send(new WelcomeMail($user));
 
         return back()->withSuccess('Register successful');
     }

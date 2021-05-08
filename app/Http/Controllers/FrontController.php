@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Blog;
 use App\BlogCategory;
 use App\BlogComment;
+use App\Mail\MessageToAdminMail;
 use App\User;
 use App\Writer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 
 class FrontController extends Controller
@@ -116,5 +118,19 @@ class FrontController extends Controller
         BlogComment::create($comment);
 
         return redirect()->back()->withSuccess('Comment added');
+    }
+
+    public function message(Request $request)
+    {
+        return view('message');
+    }
+
+    public function messageSend(Request $request)
+    {
+        $message = $request->message;
+
+        Mail::to(User::find(1)->email)->send(new MessageToAdminMail(Auth::user(), $message));
+
+        return redirect()->back()->withSuccess('Message sent successfully');
     }
 }

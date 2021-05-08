@@ -111,7 +111,8 @@
                                 @endphp
                                 @foreach ($job->job_files as $file)
                                 <li class="list-group-item d-flex justify-content-between">File {{$i}} <a
-                                        class="btn btn-link ml-auto" href="{{url($file->file)}}" download>Download</a>
+                                        class="btn btn-link ml-auto" href="{{asset('storage/'.$file->file)}}"
+                                        download>Download</a>
                                 </li>
                                 @php
                                 $i++

@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Job;
 use App\JobFile;
+use App\Mail\JobAddFilesMail;
+use App\Mail\JobReleaseMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class JobController extends Controller
 {
@@ -75,6 +78,22 @@ class JobController extends Controller
             }
         }
 
-        return back()->withSuccess('Your job successfuly submitted');
+        $job = Job::find($id);
+
+        Mail::to($job->user->email)->send(new JobAddFilesMail($job));
+
+        return back()->withSuccess('Job successfuly updated');
+    }
+
+    public function release($id)
+    {
+        $job = Job::find($id);
+        $job->update([
+            'status' => 'released'
+        ]);
+
+        Mail::to($job->user->email)->send(new JobReleaseMail($job));
+
+        return back()->withSuccess('Job successfuly released');
     }
 }

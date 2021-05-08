@@ -1,12 +1,1 @@
-1. register mail
-2. user dashboard
-    1. orders/job table
-        3. Refund - done
-        4. Project file see - done
-3. Admin dashboard
-    1. Orders/job table
-        2. Project file (Upload mail sent to hirer)
-    2. Register list
-4. paypal integration - done
-6. small changes - done
-7. if change anything then re payment
+4. newsletter

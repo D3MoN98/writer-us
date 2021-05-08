@@ -47,6 +47,9 @@
     <script src="{{asset('js/swiper.js')}}"></script>
     <script src="{{asset('js/custom.js')}}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+    </script>
     @stack('scripts')
 
     @if (session('success'))

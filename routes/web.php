@@ -46,6 +46,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('blog/{slug}', 'FrontController@blog')->name('blog.show');
     Route::post('blog/{id}/comment/create', 'FrontController@add_comment')->name('blog.comment.create');
+
+    Route::get('message', 'FrontController@message')->name('message');
+    Route::post('message', 'FrontController@messageSend')->name('message.send');
 });
 
 
@@ -60,6 +63,8 @@ Route::namespace('Admin')->prefix('admin/')->name('admin.')->group(function () {
         Route::get('dashboard', 'AuthController@dashboard')->name('dashboard');
         Route::resource('writer', 'WriterController');
         Route::resource('job', 'JobController')->except(['store', 'destroy', 'create']);
+        Route::put('job/{id}/release', 'JobController@release')->name('job.release');
+
         Route::resource('customer', 'CustomerController')->except(['store', 'destroy', 'create', 'edit']);
         Route::resource('blog', 'BlogController');
         Route::post('blog/delete/image', 'BlogController@image_delete');

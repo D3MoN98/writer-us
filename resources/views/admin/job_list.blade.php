@@ -42,6 +42,7 @@
                                 <th>Urgency</th>
                                 <th>Price</th>
                                 <th>Payment</th>
+                                <th>Status</th>
                                 <th>Created</th>
                                 <th>Action</th>
                             </tr>
@@ -54,12 +55,22 @@
                                 <td>{{$job->writer->name}}</td>
                                 <td>{{$job->pages}}</td>
                                 <td>{{$job->urgency}}</td>
-                                <td>{{$job->payment_Status}}</td>
+                                <td>{{$job->price}}</td>
+                                <td>{{$job->payment_status}}</td>
+                                <td>{{$job->status}}</td>
                                 <td>{{$job->created_at->format('m/d/Y')}}</td>
                                 <td>
-                                    <a href="{{route('admin.job.edit', $job->id)}}" type="button"
-                                        class="btn btn-sm btn-primary"><i class="fa fa-edit"
-                                            style="font-weight: bolder"></i></a>
+                                    <form action="{{route('admin.job.release', $job->id)}}" method="post">
+                                        @csrf
+                                        @method('put')
+                                        <a href="{{route('admin.job.edit', $job->id)}}" type="button"
+                                            class="btn btn-sm btn-primary"><i class="fa fa-edit"
+                                                style="font-weight: bolder"></i></a>
+                                        @if (!in_array($job->status, ['released', 'cancelled']))
+                                        <button type="submit" class="btn btn-sm btn-success release" title="Release"><i
+                                                class="fa fa-check" style="font-weight: bolder"></i></button>
+                                        @endif
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
@@ -77,7 +88,7 @@
 @push('scripts')
 
 <script>
-    $(document).on('click', '.delete', function(e){
+    $(document).on('click', '.release', function(e){
         e.preventDefault();
         var _this = $(this);
         Swal.fire({
@@ -87,10 +98,11 @@
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Yes, release it!'
         }).then((result) => {
             if (result.value) {
                 _this.closest('form').submit();
+
             }
         })
     })

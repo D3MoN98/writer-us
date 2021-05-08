@@ -214,7 +214,12 @@ class JobController extends Controller
      */
     public function edit($id)
     {
+
         $job = Job::find($id);
+
+        if ($job->user_id !== auth()->user()->id) {
+            abort(404); // or some other
+        }
 
         return view('job_edit')->with([
             'job' => $job,

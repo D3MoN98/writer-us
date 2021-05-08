@@ -7,6 +7,7 @@
         color: white !important;
     }
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
 @endpush
 
 @section('content')
@@ -17,7 +18,7 @@
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link text-primary" id="v-pills-profile-tab" href="{{route('profile')}}">Profile</a>
                 <a class="nav-link text-primary active" href="{{route('job.index')}}">Jobs</a>
-                <a class="nav-link text-primary">Payment Method</a>
+                <a href="{{route('message')}}" class="nav-link text-primary">Send Message</a>
             </div>
         </div>
         <div class="col-9">
@@ -103,9 +104,14 @@
                                         $i = 1;
                                         @endphp
                                         @foreach ($job->job_files as $file)
-                                        <li class="list-group-item d-flex justify-content-between">File {{$i}} <a
-                                                class="btn btn-link ml-auto" href="{{url($file->file)}}"
-                                                download>Download</a></li>
+                                        <li class="list-group-item d-flex justify-content-between">File {{$i}}
+                                            <a class="btn btn-link ml-auto" data-fancybox data-type="iframe"
+                                                data-src="{{asset('storage/'.$file->file)}}" href="javascript:;">
+                                                View
+                                            </a>
+                                        </li>
+
+
                                         @php
                                         $i++
                                         @endphp
@@ -123,3 +129,7 @@
 </div>
 
 @endsection
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+@endpush

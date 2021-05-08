@@ -72,6 +72,17 @@ class Job extends Model
     }
 
 
+    /**
+     * Get the writer that owns the Job
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+
     public function payment()
     {
         return $this->morphOne('App\Payment', 'paymentable');
