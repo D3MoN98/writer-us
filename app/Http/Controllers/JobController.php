@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Job;
 use App\JobFile;
+use App\Mail\JobAddAdminMail;
+use App\Mail\JobAddMail;
+use App\User;
 use App\Writer;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Stripe;
 use Srmklive\PayPal\Services\ExpressCheckout;
 
@@ -115,6 +119,9 @@ class JobController extends Controller
                         'type' => 'stripe'
                     ]);
 
+                    Mail::to(User::find(1)->email)->send(new JobAddAdminMail($job));
+                    Mail::to($job->user->email)->send(new JobAddMail($job));
+
                     return back()->withSuccess('Payment successfull');
                 }
             } else if (isset($request->payment_type_paypal)) {
@@ -142,7 +149,6 @@ class JobController extends Controller
 
                 return redirect($response['paypal_link']);
             }
-
 
             return redirect()->back()->withErrors(['error' => 'Something went wrong']);
         } catch (Exception $e) {
@@ -239,7 +245,21 @@ class JobController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            if (isset($request->accept)) {
+                Job::find($id)->update([
+                    'status' => 'accepted'
+                ]);
+            } else if (isset($request->revision)) {
+                Job::find($id)->update([
+                    'status' => 'revision',
+                    'revision_note' => $request->revision_note,
+                ]);
+            }
+            return back()->withSuccess('Job status updated');
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -311,6 +331,9 @@ class JobController extends Controller
                 'status' => 'succeeded',
                 'type' => 'paypal'
             ]);
+
+            Mail::to(User::find(1)->email)->send(new JobAddAdminMail($job));
+            Mail::to($job->user->email)->send(new JobAddMail($job));
 
             return redirect()->route('job.create')->withSuccess('Payment successfull');
         }

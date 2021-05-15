@@ -58,7 +58,7 @@
                                                 @method('put')
                                                 @if (!in_array($job->status, ['released', 'cancelled']))
                                                 <a href="{{route('job.edit', $job->id)}}" type="button"
-                                                    class="btn btn-sm btn-outline-primary">Edit</a>
+                                                    class="btn btn-sm btn-outline-primary">View Job</a>
                                                 @endif
                                                 @if ($job->payment_status != 'refunded' && isset($job->payment) &&
                                                 $job->payment->type ==

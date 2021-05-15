@@ -44,7 +44,8 @@
                                 <th>Payment</th>
                                 <th>Status</th>
                                 <th>Created</th>
-                                <th>Action</th>
+                                <th class="text-center">View Proposal</th>
+                                <th class="text-center">Release</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -57,15 +58,45 @@
                                 <td>{{$job->urgency}}</td>
                                 <td>{{$job->price}}</td>
                                 <td>{{$job->payment_status}}</td>
-                                <td>{{$job->status}}</td>
-                                <td>{{$job->created_at->format('m/d/Y')}}</td>
                                 <td>
+                                    @php
+                                    switch($job->status){
+                                    case 'revision':
+                                    $badge = 'warning';
+                                    break;
+                                    case 'accepted':
+                                    $badge = 'success';
+                                    break;
+                                    case 'completed':
+                                    $badge = 'success';
+                                    break;
+                                    case 'released':
+                                    $badge = 'success';
+                                    break;
+                                    case 'cancelled':
+                                    $badge = 'danger';
+                                    break;
+                                    default:
+                                    $badge = 'primary';
+                                    break;
+                                    }
+                                    @endphp
+                                    <span class="badge badge-{{$badge}}">
+                                        {{$job->status}}
+                                    </span>
+                                </td>
+                                <td>{{$job->created_at->format('m/d/Y')}}</td>
+                                <td class="text-center">
+                                    @if (!in_array($job->status, ['released', 'cancelled']))
+                                    <a href="{{route('admin.job.edit', $job->id)}}" type="button"
+                                        class="btn btn-sm btn-primary"><i class="fa fa-edit"
+                                            style="font-weight: bolder"></i></a>
+                                    @endif
+                                </td>
+                                <td class="text-center">
                                     <form action="{{route('admin.job.release', $job->id)}}" method="post">
                                         @csrf
                                         @method('put')
-                                        <a href="{{route('admin.job.edit', $job->id)}}" type="button"
-                                            class="btn btn-sm btn-primary"><i class="fa fa-edit"
-                                                style="font-weight: bolder"></i></a>
                                         @if (!in_array($job->status, ['released', 'cancelled']))
                                         <button type="submit" class="btn btn-sm btn-success release" title="Release"><i
                                                 class="fa fa-check" style="font-weight: bolder"></i></button>

@@ -17,7 +17,9 @@ class FrontController extends Controller
 {
     public function home()
     {
-        return view('home');
+        $writers = Writer::all();
+
+        return view('home')->with(['writers' => $writers]);
     }
 
     public function testimonials()

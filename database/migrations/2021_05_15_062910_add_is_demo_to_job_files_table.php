@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTypeToPaymentsTable extends Migration
+class AddIsDemoToJobFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddTypeToPaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::table('payments', function (Blueprint $table) {
-            $table->enum('type', ['paypal', 'stripe'])->nullable()->after('charge_id')->change();
+        Schema::table('job_files', function (Blueprint $table) {
+            $table->boolean('is_demo')->default(1)->after('file');
         });
     }
 
@@ -25,7 +25,7 @@ class AddTypeToPaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('payments', function (Blueprint $table) {
+        Schema::table('job_files', function (Blueprint $table) {
             //
         });
     }

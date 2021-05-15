@@ -25,14 +25,21 @@
                         style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
                         <h4>Important Link</h4>
                         <ul>
-                            <li> <a href="javascript:void(0);">About Us</a> </li>
-                            <li> <a href="javascript:void(0);">Events</a> </li>
-                            <li> <a href="javascript:void(0);">Management</a> </li>
-                            <li> <a href="javascript:void(0);">Corporate Responsibility</a> </li>
-                            <li> <a href="javascript:void(0);">Analyst Coverage</a> </li>
+                            <li> <a href="{{route('about-us')}}">About Us</a> </li>
+                            <li> <a href="{{route('writer')}}">Writing Services</a> </li>
+                            <li> <a href="{{route('testimonials')}}">Testimonial</a> </li>
+                            @guest
+                            <li> <a href="javascript:void(0);" data-toggle="modal" data-target="#loginModal">Login
+                                    In</a> </li>
+                            <li> <a href="javascript:void(0);" data-toggle="modal" data-target="#loginModal">Hire
+                                    Writer</a> </li>
+                            @endguest
+
+                            @auth
+                            <li> <a href="{{route('job.create')}}" data-toggle="modal" data-target="#loginModal">Hire
+                                    Writer</a> </li>
+                            @endauth
                             <li> <a href="{{route('blog.index')}}">Blog</a> </li>
-                            <li> <a href="javascript:void(0);">News</a> </li>
-                            <li> <a href="javascript:void(0);">Careers</a> </li>
                         </ul>
                     </div>
                 </div>

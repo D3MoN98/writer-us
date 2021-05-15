@@ -103,7 +103,7 @@
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary cmn_btn">Register</button>
                     <button type="button" class="btn btn-primary cmn_btn lg-in" data-toggle="modal"
-                        data-target="#loginModal">Login</button>
+                        data-target="#loginModal" data-dismiss="modal">Login</button>
                 </div>
             </form>
         </div>
@@ -136,7 +136,7 @@
 
 @endpush
 
-@if ($errors->any())
+@if ($errors->any() && !$errors->first('login-error') && !isset(request()->token))
 
 @push('scripts')
 

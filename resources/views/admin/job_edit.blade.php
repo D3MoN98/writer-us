@@ -1,5 +1,10 @@
 @extends('admin.layout.app')
 
+@push('styles')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+@endpush
+
 @section('content')
 
 <div class="header bg-primary pb-6">
@@ -25,8 +30,31 @@
 <div class="container-fluid mt--6">
     <div class="card mb-4">
         <!-- Card header -->
-        <div class="card-header">
+        <div class="card-header d-flex justify-content-between">
             <h3 class="mb-0">Writer Details</h3>
+            @php
+            switch($job->status){
+            case 'revision':
+            $badge = 'warning';
+            break;
+            case 'accepted':
+            $badge = 'success';
+            break;
+            case 'completed':
+            $badge = 'success';
+            break;
+            case 'released':
+            $badge = 'success';
+            break;
+            case 'cancelled':
+            $badge = 'danger';
+            break;
+            default:
+            $badge = 'primary';
+            break;
+            }
+            @endphp
+            <span class="badge badge-{{$badge}}">{{$job->status}}</span>
         </div>
         <!-- Card body -->
         <div class="card-body">
@@ -102,29 +130,62 @@
                                 required>{{$job->paper_instructions}}</textarea>
                         </div>
 
+                        @if ($job->status == 'revision')
                         <div class="form-group">
-                            <label>Files :</label>
+                            <label for="" class="text-warning">Revision Note</label>
+                            <textarea placeholder="Revision note" class="form-control" id="" cols="30" rows="5"
+                                readonly>{{$job->revision_note}}</textarea>
+                        </div>
+                        @endif
+
+                        <div class="form-group">
+                            <label>Demo Files :</label>
                             <ul class="list-group">
                                 @if ($job->job_files->count() > 0)
-                                @php
-                                $i = 1;
-                                @endphp
                                 @foreach ($job->job_files as $file)
-                                <li class="list-group-item d-flex justify-content-between">File {{$i}} <a
-                                        class="btn btn-link ml-auto" href="{{asset('storage/'.$file->file)}}"
-                                        download>Download</a>
+                                @if ($file->is_demo)
+                                <li class="list-group-item d-flex justify-content-between">File #{{$file->id}}
+                                    <a class="btn btn-link ml-auto" data-fancybox data-type="iframe"
+                                        data-src="{{asset('storage/'.$file->file)}}" href="javascript:;">
+                                        View
+                                    </a>
                                 </li>
-                                @php
-                                $i++
-                                @endphp
+                                @endif
                                 @endforeach
                                 @endif
                             </ul>
                         </div>
 
                         <div class="form-group">
-                            <label>Add Files :</label>
-                            <input class="form-control" type="file" name="job_file[]" id="">
+                            <label>Final Files :</label>
+                            <ul class="list-group">
+                                @if ($job->job_files->count() > 0)
+                                @foreach ($job->job_files as $file)
+                                @if (!$file->is_demo)
+                                <li class="list-group-item d-flex justify-content-between">File #{{$file->id}}
+                                    <a class="btn btn-link ml-auto" data-fancybox data-type="iframe"
+                                        data-src="{{asset('storage/'.$file->file)}}" href="javascript:;">
+                                        View
+                                    </a>
+                                    {{-- <a
+                                        class="btn btn-link ml-auto" href="{{asset('storage/'.$file->file)}}"
+                                    download>Download</a> --}}
+                                </li>
+                                @endif
+                                @endforeach
+                                @endif
+                            </ul>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Add Demo Files :</label>
+                            <input class="form-control" type="file" name="job_demo_file[]" id="">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Add Final Files :</label>
+                            <input class="form-control" type="file" name="job_final_file[]" id="">
                         </div>
 
                         <div class="form-group">
@@ -139,3 +200,9 @@
 </div>
 
 @endsection
+
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+@endpush

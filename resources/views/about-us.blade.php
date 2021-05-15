@@ -93,7 +93,7 @@
 </section>
 <!-- end section  -->
 <!-- contact section   -->
-<section class="contus-sec">
+<div class="contus-sec">
     <div class="container">
         <div class="contus-otr">
             <div class="cmn_hdr mid text-center   wow fadeInLeft ">
@@ -101,11 +101,22 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus</p>
             </div>
             <div class="contus-in">
-                <div class="hdr-btn"> <a href="" class="btn btn-primary cmn_btn ">log in</a> <a href=""
-                        class="btn btn-primary cmn_btn lg-in">hire writer</a> </div>
+                <div class="hdr-btn">
+                    @guest
+                    <a href="" class="btn btn-primary cmn_btn " data-toggle="modal" data-target="#loginModal">log in</a>
+                    <a href="" class="btn btn-primary cmn_btn lg-in" data-toggle="modal" data-target="#loginModal">hire
+                        writer</a>
+                    @endguest
+
+                    @auth
+                    <a href="{{route('job.create')}}" class="btn btn-primary cmn_btn lg-in">hire
+                        writer</a>
+                    @endauth
+                </div>
             </div>
         </div>
     </div>
+</div>
 </section>
 <!--       -->
 

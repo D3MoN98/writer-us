@@ -15,7 +15,7 @@ class Job extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'writer_id', 'document_type', 'academic_level', 'subject', 'pages', 'topic', 'paper_instructions', 'deadline', 'urgency', 'payment_status', 'price', 'status'
+        'user_id', 'writer_id', 'document_type', 'academic_level', 'subject', 'pages', 'topic', 'paper_instructions', 'deadline', 'urgency', 'payment_status', 'price', 'status', 'revision_note'
     ];
 
     protected $document_types = ['Essay', 'Tem Paper', 'Research Paper', 'Research Report', 'Coursework', 'Book Report', 'Book Review', 'Movie Review', 'Research Summary', 'Dissertation', 'Thesis', 'Thesis Proposal', 'Project Proposal', 'Dissertation Chapter-Abstract', 'Dissertation Chapter-Abstract'];

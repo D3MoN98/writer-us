@@ -33,6 +33,8 @@
     @guest
     @include('include.login-modal')
     @include('include.register-modal')
+    @include('include.forget-password-modal')
+    @include('include.reset-password-modal')
     @endguest
 
 
@@ -48,7 +50,7 @@
     <script src="{{asset('js/custom.js')}}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
-        document.addEventListener('contextmenu', event => event.preventDefault());
+        // document.addEventListener('contextmenu', event => event.preventDefault());
     </script>
     @stack('scripts')
 

@@ -19,6 +19,9 @@ Route::get('testimonials', 'FrontController@testimonials')->name('testimonials')
 Route::get('about-us', 'FrontController@aboutUs')->name('about-us');
 Route::get('writer', 'FrontController@writer')->name('writer');
 
+Route::post('forget-password', 'AuthController@forgetPassword')->middleware('guest')->name('password.email');
+Route::post('reset-password', 'AuthController@resetPassword')->middleware('guest')->name('password.update');
+
 
 
 Route::middleware(['guest'])->group(function () {

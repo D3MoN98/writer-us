@@ -1,1 +1,2 @@
-4. newsletter
+4. to server
+5. profile box

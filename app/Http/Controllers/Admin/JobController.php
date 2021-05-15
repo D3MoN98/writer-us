@@ -66,9 +66,8 @@ class JobController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $job_files = [];
-        if ($request->hasFile('job_file')) {
-            foreach ($request->file('job_file') as $file) {
+        if ($request->hasFile('job_demo_file')) {
+            foreach ($request->file('job_demo_file') as $file) {
                 $path = $file->store('storage/jobs', 'public');
                 JobFile::create([
                     'added_by' => Auth::id(),
@@ -76,6 +75,23 @@ class JobController extends Controller
                     'file' => $path
                 ]);
             }
+
+            Job::find($id)->update([
+                'status' => 'in progress'
+            ]);
+        } else if ($request->hasFile('job_final_file')) {
+            foreach ($request->file('job_final_file') as $file) {
+                $path = $file->store('storage/jobs', 'public');
+                JobFile::create([
+                    'added_by' => Auth::id(),
+                    'job_id' => $id,
+                    'file' => $path,
+                    'is_demo' => 1
+                ]);
+            }
+            Job::find($id)->update([
+                'status' => 'completed'
+            ]);
         }
 
         $job = Job::find($id);
