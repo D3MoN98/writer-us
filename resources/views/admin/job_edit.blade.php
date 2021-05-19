@@ -139,16 +139,50 @@
                         @endif
 
                         <div class="form-group">
+                            <label>Customer Files :</label>
+                            <ul class="list-group">
+                                @if ($job->job_files->count() > 0)
+                                @foreach ($job->job_files as $file)
+                                @if ($file->added_by == $job->user_id)
+                                <li class="list-group-item d-flex justify-content-between">
+                                    {{explode('/',$file->file)[2]}}
+                                    <div>
+                                        <a class="btn btn-link ml-auto" data-fancybox data-type="iframe"
+                                            data-src="{{asset('storage/'.$file->file.'#toolbar=0')}}"
+                                            href="javascript:;">
+                                            View
+                                        </a>
+                                        <a class="btn btn-link ml-auto" href="{{asset('storage/'.$file->file)}}"
+                                            download>
+                                            Download
+                                        </a>
+                                    </div>
+                                </li>
+                                @endif
+                                @endforeach
+                                @endif
+                            </ul>
+                        </div>
+
+                        <div class="form-group">
                             <label>Demo Files :</label>
                             <ul class="list-group">
                                 @if ($job->job_files->count() > 0)
                                 @foreach ($job->job_files as $file)
-                                @if ($file->is_demo)
-                                <li class="list-group-item d-flex justify-content-between">File #{{$file->id}}
-                                    <a class="btn btn-link ml-auto" data-fancybox data-type="iframe"
-                                        data-src="{{asset('storage/'.$file->file)}}" href="javascript:;">
-                                        View
-                                    </a>
+                                @if ($file->is_demo && $file->added_by != $job->user_id)
+                                <li class="list-group-item d-flex justify-content-between">
+                                    {{explode('/',$file->file)[2]}}
+                                    <div>
+                                        <a class="btn btn-link ml-auto" data-fancybox data-type="iframe"
+                                            data-src="{{asset('storage/'.$file->file.'#toolbar=0')}}"
+                                            href="javascript:;">
+                                            View
+                                        </a>
+                                        <a class="btn btn-link ml-auto" href="{{asset('storage/'.$file->file)}}"
+                                            download>
+                                            Download
+                                        </a>
+                                    </div>
                                 </li>
                                 @endif
                                 @endforeach
@@ -161,15 +195,20 @@
                             <ul class="list-group">
                                 @if ($job->job_files->count() > 0)
                                 @foreach ($job->job_files as $file)
-                                @if (!$file->is_demo)
-                                <li class="list-group-item d-flex justify-content-between">File #{{$file->id}}
-                                    <a class="btn btn-link ml-auto" data-fancybox data-type="iframe"
-                                        data-src="{{asset('storage/'.$file->file)}}" href="javascript:;">
-                                        View
-                                    </a>
-                                    {{-- <a
-                                        class="btn btn-link ml-auto" href="{{asset('storage/'.$file->file)}}"
-                                    download>Download</a> --}}
+                                @if (!$file->is_demo && $file->added_by != $job->user_id)
+                                <li class="list-group-item d-flex justify-content-between">
+                                    {{explode('/',$file->file)[2]}}
+                                    <div>
+                                        <a class="btn btn-link ml-auto" data-fancybox data-type="iframe"
+                                            data-src="{{asset('storage/'.$file->file.'#toolbar=0')}}"
+                                            href="javascript:;">
+                                            View
+                                        </a>
+                                        <a class="btn btn-link ml-auto" href="{{asset('storage/'.$file->file)}}"
+                                            download>
+                                            Download
+                                        </a>
+                                    </div>
                                 </li>
                                 @endif
                                 @endforeach

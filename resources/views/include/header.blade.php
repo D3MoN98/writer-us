@@ -20,8 +20,8 @@
                                                 <li class="nav-item"> <a class="nav-link"
                                                         href="{{route('writer')}}">Writing
                                                         Services</a> </li>
-                                                <li class="nav-item"> <a class="nav-link" href="how-its-work.html">How
-                                                        it works </a> </li>
+                                                <li class="nav-item"> <a class="nav-link"
+                                                        href="{{asset('blog')}}">Blogs</a> </li>
                                                 <li class="nav-item"> <a class="nav-link" href="{{route('about-us')}}">
                                                         About Us
                                                     </a> </li>

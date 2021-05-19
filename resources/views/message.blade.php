@@ -12,38 +12,42 @@
 @section('content')
 
 <div class="container">
-    <div class="row my-5">
-        <div class="col-3">
-            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link text-primary" id="v-pills-profile-tab" href="{{route('profile')}}">Profile</a>
-                <a class="nav-link text-primary" href="{{route('job.index')}}">Jobs</a>
-                <a href="{{route('message')}}" class="nav-link text-primary active">Send Message</a>
+    <div class="user-dashboard-otr card">
+        <div class="row my-5">
+            <div class="col-3">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link text-primary" id="v-pills-profile-tab" href="{{route('profile')}}">Profile</a>
+                    <a class="nav-link text-primary" href="{{route('job.index')}}">Jobs</a>
+                    <a href="{{route('message')}}" class="nav-link text-primary active">Send Message</a>
+                </div>
             </div>
-        </div>
-        <div class="col-9">
-            <div class="tab-content">
-                <div class="tab-pane fade show active">
-                    <form action="{{route('message.send')}}" method="post" class="needs-validation" novalidate>
+            <div class="col-9">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active">
+                        <form action="{{route('message.send')}}" method="post" class="needs-validation" novalidate>
 
-                        <div class="row">
-                            @csrf
+                            <div class="row">
+                                @csrf
 
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="">Message</label>
-                                    <textarea class="form-control" name="message" id="" cols="30" rows="10"
-                                        required></textarea>
-                                    <div class="invalid-feedback">
-                                        Messsage is required
+                                <div class="col-12">
+                                    <h3>Message</h3>
+                                    <hr>
+                                    <div class="form-group">
+                                        <label for="">Message</label>
+                                        <textarea class="form-control" name="message" id="" cols="30" rows="10"
+                                            required></textarea>
+                                        <div class="invalid-feedback">
+                                            Messsage is required
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Send Message</button>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Send Message</button>
-                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

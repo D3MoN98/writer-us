@@ -151,8 +151,8 @@
                                 <div class="swiper-slide">
                                     <div class="testimonial-box ">
                                         <div class="testi-icon">
-                                            <div class="testi-icon-innr"> <img src="{{asset('images/ch1.png')}}"
-                                                    alt="" /> </div>
+                                            <div class="testi-icon-innr"> <img
+                                                    src="{{asset('storage/'.$writer->image)}}" alt="" /> </div>
                                             <div class="testi-icon-txt">
                                                 <h3>{{$writer->name}}</h3>
                                                 <h5>№{{$writer->global_rating_rank}} In global rating</h5> <img
@@ -168,8 +168,10 @@
                                             <div>
                                                 <h2>{{$writer->success_rate}}%</h2>
                                                 <p>Success Rate</p>
-                                            </div> <button type="button" data-writer-cost="{{$writer->cost}}"
-                                                data-writer="{{$writer->id}}" data-writer-name="{{$writer->name}}"
+                                            </div> <button type="button"
+                                                data-writer-image="{{asset('storage/'.$writer->image)}}"
+                                                data-writer-cost="{{$writer->cost}}" data-writer="{{$writer->id}}"
+                                                data-writer-name="{{$writer->name}}"
                                                 class="btn btn-primary cmn_btn writer-select">Accept</button>
                                         </div>
                                     </div>
@@ -188,7 +190,10 @@
             </fieldset>
 
             <fieldset>
-                <h3 class="text-center">Check your order and add funds to your balance</h3>
+                <div class="d-flex justify-content-between">
+                    <h3 class="text-center">Check your order and add funds to your balance</h3>
+                    <button type="button" class="btn btn-outline-primary previous">Edit Order</button>
+                </div>
                 <div class="ul-list">
                     <ul>
                         <li>
@@ -224,7 +229,8 @@
                         <div class="wrtr">
                             <h5>writer :</h5>
                             <div class="wrtr-in">
-                                <div class="wrtr-img"> <img class="img-fluid" src="{{asset('images/.png')}}" alt="">
+                                <div class="wrtr-img"> <img class="img-fluid writer_image"
+                                        src="{{asset('images/.png')}}" alt="">
                                 </div>
                                 <div class="wrtr-txt">
                                     <h3 class="writer_name_overview">Dr. Raychelle</h3>
@@ -305,7 +311,10 @@
             </fieldset>
 
             <fieldset>
-                <h3 class="text-center">Check your order and add funds to your balance</h3>
+                <div class="d-flex justify-content-between">
+                    <h3 class="text-center">Check your order and add funds to your balance</h3>
+                    <button type="button" class="btn btn-outline-primary previous">Edit Order</button>
+                </div>
                 <div class="row mt-3">
                     <div class="col-6">
                         <div class="card-js" data-stripe="true" data-icon-colour="transparent">
@@ -493,6 +502,7 @@
         $('input[name="writer_cost"]').val($(this).data('writer-cost'));
         $('.writer_cost_overview').text($(this).data('writer-cost'));
         $('.writer_name_overview').text($(this).data('writer-name'));
+        $('.writer_image').attr('src', $(this).data('writer-image'));
 
         $(this).closest('fieldset').find('.next').trigger('click');
     })

@@ -20,7 +20,7 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::all();
+        $jobs = Job::orderBy('created_at', 'desc')->get();
 
         return view('admin.job_list')->with([
             'jobs' => $jobs
@@ -86,7 +86,7 @@ class JobController extends Controller
                     'added_by' => Auth::id(),
                     'job_id' => $id,
                     'file' => $path,
-                    'is_demo' => 1
+                    'is_demo' => 0
                 ]);
             }
             Job::find($id)->update([

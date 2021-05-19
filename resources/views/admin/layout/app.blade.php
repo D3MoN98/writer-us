@@ -37,13 +37,13 @@
     <!-- Argon Scripts -->
     <!-- Core -->
 
-    <script src="http://127.0.0.1:8000/admin/assets/js/plugins/jquery/dist/jquery.min.js"></script>
-    <script src="http://127.0.0.1:8000/admin/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="http://127.0.0.1:8000/admin/assets/js/argon-dashboard.min.js?v=1.1.0"></script>
+    <script src="{{asset('admin/assets/js/plugins/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{asset('admin/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('admin/assets/js/argon-dashboard.min.js?v=1.1.0')}}"></script>
     <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-    <script src="http://127.0.0.1:8000/admin/assets/js/plugins/chart.js/dist/Chart.min.js"></script>
-    <script src="http://127.0.0.1:8000/admin/assets/js/plugins/chart.js/dist/Chart.extension.js"></script>
-    <script src="http://127.0.0.1:8000/admin/assets/js/argon-dashboard.min.js"></script>
+    <script src="{{asset('admin/assets/js/plugins/chart.js/dist/Chart.min.js')}}"></script>
+    <script src="{{asset('admin/assets/js/plugins/chart.js/dist/Chart.extension.js')}}"></script>
+    <script src="{{asset('admin/assets/js/argon-dashboard.min.js')}}"></script>
     <div class="backdrop d-xl-none" data-action="sidenav-unpin" data-target="undefined"></div>
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>

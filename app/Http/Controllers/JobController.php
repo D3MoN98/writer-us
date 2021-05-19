@@ -122,7 +122,7 @@ class JobController extends Controller
                     Mail::to(User::find(1)->email)->send(new JobAddAdminMail($job));
                     Mail::to($job->user->email)->send(new JobAddMail($job));
 
-                    return back()->withSuccess('Payment successfull');
+                    return redirect()->route('job.index')->withSuccess('Payment successfull');
                 }
             } else if (isset($request->payment_type_paypal)) {
 
@@ -250,13 +250,15 @@ class JobController extends Controller
                 Job::find($id)->update([
                     'status' => 'accepted'
                 ]);
+                $status = 'accepted';
             } else if (isset($request->revision)) {
                 Job::find($id)->update([
                     'status' => 'revision',
                     'revision_note' => $request->revision_note,
                 ]);
+                $status = 'revision';
             }
-            return back()->withSuccess('Job status updated');
+            return back()->withSuccess('Job status updated to ' . $status);
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -286,7 +288,8 @@ class JobController extends Controller
         ]);
 
         $job->update([
-            'payment_status' => 'refunded'
+            'payment_status' => 'refunded',
+            'status' => 'refunded'
         ]);
 
         return back()->withSuccess('Successfuly refunded');

@@ -28,7 +28,7 @@ class CreateJobsTable extends Migration
             $table->dateTime('deadline')->nullable();
             $table->string('urgency')->nullable();
             $table->float('price');
-            $table->enum('status', ['processing', 'in_progress', 'released', 'cancelled']);
+            $table->enum('status', ['processing', 'in_progress', 'released', 'cancelled', 'completed', 'accepted', 'revision']);
             $table->softDeletes();
             $table->timestamps();
         });
