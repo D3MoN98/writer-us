@@ -13,15 +13,22 @@
 
 <div class="container">
     <div class="user-dashboard-otr card">
-        <div class="row my-5">
-            <div class="col-3">
-                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link text-primary" id="v-pills-profile-tab" href="{{route('profile')}}">Profile</a>
-                    <a class="nav-link text-primary" href="{{route('job.index')}}">Jobs</a>
-                    <a href="{{route('message')}}" class="nav-link text-primary active">Send Message</a>
-                </div>
+        <div class="row my-2">
+            <div class="col-12">
+                <ul class="nav nav-pills justify-content-center mb-3">
+                    <li class="nav-item">
+                        <a class="nav-link text-primary" id="v-pills-profile-tab"
+                            href="{{route('profile')}}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-primary " href="{{route('job.index')}}">Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('message')}}" class="nav-link text-primary active">Send Message</a>
+                    </li>
+                </ul>
             </div>
-            <div class="col-9">
+            <div class="col-12">
                 <div class="tab-content">
                     <div class="tab-pane fade show active">
                         <form action="{{route('message.send')}}" method="post" class="needs-validation" novalidate>
